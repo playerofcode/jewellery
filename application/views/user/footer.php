@@ -86,42 +86,38 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane container py-2" id="register">
-        <form action="" method="post">
+        <form id="registerform" action="" method="post">
           <div class="form-group">
             <label>Name</label>
-            <input type="text" name="name" class="form-control" placeholder="Enter Full Name">
-          </div>
-          <div class="form-group">
-            <label>Date of Birth</label>
-            <input type="date" name="dob" class="form-control">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Full Name" required>
           </div>
           <div class="form-group">
             <label>Email Address</label>
-            <input type="text" name="email" class="form-control" placeholder="Enter Email Address">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email Address" required="">
             </div>
             <div class="form-group">
               <label>Mobile Number</label>
-              <input type="text" name="mobno" class="form-control" placeholder="Enter Mobile Number">
+              <input type="text" name="mobno" id="mobno" class="form-control" placeholder="Enter Mobile Number" required="">
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" name="paassword" class="form-control" placeholder="Create Password">
+              <input type="password" name="password" id="password" class="form-control" placeholder="Create Password" required="">
             </div>
             <div class="form-group text-center">
               <input type="reset" value="Reset" class="btn btn-info" style="border-radius: 50px;">
-              <input type="submit" value="Register" class="btn btn-danger"  style="border-radius: 50px;">
+              <input type="submit" onclick="resis"value="Register" class="btn btn-danger"  style="border-radius: 50px;">
             </div>
           
         </form>
   </div>
   <div class="tab-pane active container  py-2 " id="login">
-    <form action="" method="post">
+    <form action="" id="loginform" method="post">
           <div class="form-group">
             <label>Email Address</label>
-            <input type="text" name="email" class="form-control" placeholder="Enter Email Address">
+            <input type="email" name="email" id="loginemail" class="form-control" placeholder="Enter Email Address" required="">
             <div class="form-group">
               <label>Password</label>
-              <input type="password" name="paassword" class="form-control" placeholder="Create Password">
+              <input type="password" name="password" id="loginpassword" class="form-control" placeholder="Create Password" required="">
             </div>
             <div class="form-group text-center">
               <input type="reset" value="Reset" class="btn btn-info"  style="border-radius: 50px;">
@@ -143,6 +139,76 @@
     <script src="<?php echo base_url();?>/assets/js/bootstrap.min.js" ></script>
     <script src="<?php echo base_url();?>/assets/js/owl.carousel.min.js"></script>
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $('#getMyLocation').click(function(){
+
+        $('#pincode').val('you will get pincode soon');
+          $.ajax({
+  url: "https://geolocation-db.com/jsonp",
+  jsonpCallback: "callback",
+  dataType: "jsonp",
+  success: function(location) {
+     $('#pincode').val(location.postal);
+  }
+});//ajax close
+      });
+      $("#registerform").submit(function(e){
+        e.preventDefault();
+        var name=$("#name").val();
+        var email=$("#email").val();
+        var mobno=$("#mobno").val();
+        var password=$("#password").val();
+         $.ajax({
+         url:"<?php echo base_url('user/register/');?>",
+         method:"POST",
+         data:{name:name,email:email,mobno:mobno,password:password},
+         success:function(data)
+         {
+            if(data =='ok')
+            {
+              $('#myModal').hide();
+            swal("Success!", "You're registered successfully", "success").then(function(){ 
+            location.reload();
+            });
+            }
+            else
+            {
+            swal("Opps!", "Something went wrong, please try again", "error");
+            }
+         }
+      });
+      });
+      $('#loginform').submit(function(e){
+        e.preventDefault();
+        var email=$("#loginemail").val();
+        var password=$("#loginpassword").val();
+        $.ajax({
+         url:"<?php echo base_url('user/login/');?>",
+         method:"POST",
+         data:{email:email,password:password},
+         success:function(data)
+         {
+            if(data =='ok')
+            {
+              $('#myModal').hide();
+            swal("Success!", "You're login successfully", "success").then(function(){ 
+            location.reload();
+            });
+            }
+            else
+            {
+              $('#myModal').hide();
+            swal("Opps!", "Email/Password is incorrect, please try again", "warning").then(function(){ 
+            location.reload();
+            });
+            }
+         }
+      });//login ajax close
+      });//login close
+    });
+
+    </script>
    <script>
     $('.owl-carousel').owlCarousel({
     loop:true,
@@ -201,11 +267,6 @@
    </script>
     <script>
       $(document).ready(function(){
-        // ('.my_gallery').magnificPopup({
-        //   type:'image',
-        //   delegate:'a',
-        //   gallery:{enabled:true}
-        // });
             $(".addToCart").on('click',function(e){
                   e.preventDefault();
                   var $form=$(this).closest(".form-submit");
@@ -230,6 +291,11 @@
                   });
                });
       });
+      // ('.my_gallery').magnificPopup({
+      //     type:'image',
+      //     delegate:'a',
+      //     gallery:{enabled:true}
+      //   });
     </script>
     
   <!-- <script type="text/javascript">

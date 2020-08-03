@@ -18,5 +18,13 @@ class User_model extends CI_model
 	{
 		return $this->db->get('products')->result();
 	}
+	public function addCustomer($data)
+	{
+		return $this->db->insert('customers',$data);
+	}
+	public function login($data)
+	{
+		return $this->db->get_where('customers',$data);
+	}
 }
 ?>

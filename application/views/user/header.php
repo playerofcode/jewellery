@@ -135,7 +135,13 @@ position: relative;
     <div class="container-fluid">
       <div class="row py-2" style="background: #f15060;">
         <div class="col-md-12 text-right" >
+          <?php 
+        if(!empty($this->session->userdata('email')))
+        {?>
+        <a class="text-white" href="<?php echo base_url('user/logout');?>">Logout</a>
+          <?php }else{?>
          <a class="text-white" href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Login</a>
+       <?php } ?>
          <a class="text-white" href="<?php echo base_url('user/cart');?>"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i><sup><span class="badge badge-pill badge-info"><?php echo $this->cart->total_items();?></span></sup></a>
         </div>
       </div>

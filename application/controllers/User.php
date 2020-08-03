@@ -137,6 +137,41 @@ class User extends CI_Controller {
 			echo $remove?'ok':'err';
 		}
 	}
+	public function register()
+	{
+		$form=$this->input->post();
+		$data=array(
+			'name'=>$form['name'],
+			'email'=>$form['email'],
+			'mobno'=>$form['mobno'],
+			'password'=>$form['password']
+		);
+		$res=$this->model->addCustomer($data);
+		echo $res?'ok':'err';
+	}
+	public function login()
+	{
+		$email=$this->input->post('email');
+		$password=$this->input->post('password');
+		$data=array(
+			'email'=>$email,
+			'password'=>$password
+		);
+		if($res=$this->model->login($data)->num_rows()>0)
+		{
+			$this->session->set_userdata('email', $email);
+			echo 'ok';
+		}
+		else
+		{
+			echo 'err';
+		}
+	}
+	public function logout()
+	{
+		$this->session->unset_userdata('email');
+		return redirect(base_url().'user/index');
+	}
 }
 
 

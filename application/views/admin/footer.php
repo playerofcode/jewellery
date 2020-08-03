@@ -4,25 +4,7 @@
         </div>
         
     </div>
-    <!--Order Item in Model-->
-
-    <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Customer Order Item(s) Details</h4>
-      </div>
-      <div class="modal-body" id="order_item_details">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+    
     <!-- ============================================================== -->
     <script src="<?php echo base_url('assets/admin/'); ?>assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->

@@ -58,6 +58,18 @@ class Admin_model extends CI_model
 		$this->db->where('p_id',$p_id);
 		return $this->db->update('products',$data);
 	}
+	public function allLocation()
+	{
+		return $this->db->get('location')->result();
+	}
+	public function delete_location($id)
+	{
+		return $this->db->delete('location',array('id'=>$id));
+	}
+	public function add_location($data)
+	{
+		return $this->db->insert('location',$data);
+	}
 }
 ?>
 

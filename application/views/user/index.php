@@ -162,13 +162,13 @@
     </div>
     <div class="row text-center py3"> 
       <div class="col-lg-6 col-md-6 p-2"> 
-          <button class="btn btn-custom"><i class="fa fa-map-marker"></i> use my current location</button>
+          <button id="getMyLocation" class="btn btn-custom"><i class="fa fa-map-marker"></i> use my current location</button>
           </div>
       <div class="col-ld-6 col-md-6 p-2"> 
           <div class="input-group mb-3">
-          <input type="text" class="form-custom" placeholder="Enter a pin code or city">
+          <input type="text" id="pincode" class="form-custom" placeholder="Enter a pin code or city" style="outline: none;">
           <div class="input-group-append">
-          <button class="btn btn-custom-form" type="submit">SUBSCRIBE</button>
+          <button class="btn btn-custom-form" type="submit">CHECK</button>
           </div>
           </div>
       </div>

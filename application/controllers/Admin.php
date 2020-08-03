@@ -417,6 +417,49 @@ class Admin extends CI_Controller {
 			return redirect(base_url().'admin/all_product');
 		}
 	}
+	public function location()
+	{
+		$data['location']=$this->model->allLocation();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/location',$data);
+		$this->load->view('admin/footer');
+	}
+	public function delete_location()
+	{
+		$id=$this->uri->segment(3);
+		if($this->model->delete_location($id))
+		{
+			$this->session->set_flashdata('msg',"Location deleted successfully");
+			return redirect(base_url().'admin/location');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/location');
+		}
+	}
+	public function add_location()
+	{
+		$city_name=$this->input->post('city_name');
+		$pincode=$this->input->post('pincode');
+		$data=array(
+			'city_name'=>$city_name,
+			'pincode'=>$pincode
+		);
+		if($this->model->add_location($data))
+		{
+			$this->session->set_flashdata('msg',"Location added successfully");
+			return redirect(base_url().'admin/location');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/location');
+		}
+
+
+	}
 
 
 
