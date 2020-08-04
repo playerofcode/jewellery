@@ -142,7 +142,7 @@ position: relative;
           <?php }else{?>
          <a class="text-white" href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Login</a>
        <?php } ?>
-         <a class="text-white" href="<?php echo base_url('user/cart');?>"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i><sup><span class="badge badge-pill badge-info"><?php echo $this->cart->total_items();?></span></sup></a>
+         <a class="text-white" href="<?php echo base_url('user/cart');?>"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i><sup><span class="badge badge-pill badge-info"><?php echo $this->cart->total_items();?></span></sup></a>
         </div>
       </div>
     </div>
@@ -150,7 +150,7 @@ position: relative;
             <nav class="navbar navbar-expand-lg bg-dark navbar-light shadow-sm sticky-top py-3 text-uppercase">
               <div class="container-fluid">
   <!-- Brand -->
-  <a class="navbar-brand mx-auto" href="<?php echo base_url('user/index');?>">Jewellery Store</a>
+  <a class="navbar-brand mx-auto" href="<?php echo base_url('user/index');?>"><span class="text-danger">J</span>ewellery <span class="text-danger">S</span>tore</a>
 
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -162,7 +162,7 @@ position: relative;
     <ul class="navbar-nav mx-auto text-center">    
     <li class="nav-item"><a href="<?php echo base_url('user/index');?>" class="nav-link active">Home</a></li>  
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      <a class="nav-link " href="#" id="navbardrop" data-toggle="dropdown">
         Categories
       </a>
       <div class="dropdown-menu">
@@ -172,26 +172,21 @@ position: relative;
       </div>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      <a class="nav-link" href="#" id="navbardrop" data-toggle="dropdown">
         Collection
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">Birthstone pendants</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">birthstone bracelet</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">facets</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">classics</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">charms</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">electrify</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">glam</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">valentines</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/products');?>">smolitaires</a>
+        <?php foreach ($collection as $key) { ?>
+      
+        <a class="dropdown-item" href="<?php echo base_url('user/collection/'.$key->cat_id);?>"><?php echo $key->cat_name; ?></a>
+          <?php } ?>
       </div>
     </li>
      <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url('user/products');?>">Silver</a>
       </li>
       <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      <a class="nav-link" href="#" id="navbardrop" data-toggle="dropdown">
         Coins
       </a>
       <div class="dropdown-menu">
@@ -203,7 +198,7 @@ position: relative;
       </div>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      <a class="nav-link" href="#" id="navbardrop" data-toggle="dropdown">
         Me in Action
       </a>
       <div class="dropdown-menu">
@@ -215,12 +210,15 @@ position: relative;
       </div>
     </li>
      <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      <a class="nav-link" href="#" id="navbardrop" data-toggle="dropdown">
         gift
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="<?php echo base_url('user/gifting');?>">gifting guide</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/gifting_occasions') ?>">gifting occasions</a>
+        <?php foreach ($gift as $key) { ?>
+        
+        <a class="dropdown-item" href="<?php echo base_url('user/gift/'.$key->cat_id);?>"><?php echo $key->cat_name;?></a>
+        <?php } ?>
+         <a class="dropdown-item" href="<?php echo base_url('user/gifting_occasions') ?>">gifting occasions</a> 
       </div>
     </li>
     </ul>

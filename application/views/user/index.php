@@ -108,10 +108,10 @@
            <div class="owl-carousel owl-theme">
             <?php foreach ($product_info as $key): ?>
               <div class="item">
-                <div class="card shadow-sm m-2">
+                <div class="card shadow-sm m-2" style="min-height: 300px;">
         <div class="card-body text-center">
           <img src="<?php echo base_url($key->p_img1);?>" alt="" class="img-fluid" style="height:150px;padding: 5px;">
-          <a href="<?php echo base_url('user/single/'.$key->p_id);?>"><?php echo $key->p_name; ?></a>
+          <a href="<?php echo base_url('user/single/'.$key->p_id);?>" style="font-size:14px;"><?php echo $key->p_name; ?></a>
           <p><i class="fa fa-inr"></i> <?php  echo $key->d_price; ?> <del><i class="fa fa-inr"></i> <?php  echo $key->m_price; ?></del> </p>
          <form action=""  class="form-submit" method="post">
                       <input type="hidden"  class="pid"  value="<?php echo $key->p_id;?>">

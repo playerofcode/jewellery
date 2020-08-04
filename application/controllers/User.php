@@ -12,14 +12,18 @@ class User extends CI_Controller {
 	public function index()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$data['product_info']=$this->model->get_allProduct();
 		$this->load->view('user/index',$data);
 		$this->load->view('user/footer');
 	}
-	public function products($cat_id)
+	public function products()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$cat_id=$this->uri->segment(3);
 		if(!empty($cat_id))
@@ -29,9 +33,25 @@ class User extends CI_Controller {
 		}
 		$this->load->view('user/footer');
 	}
+	public function collection()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$cat_id=$this->uri->segment(3);
+		if(!empty($cat_id))
+		{
+		$data['product_info']=$this->model->get_productByCollection($cat_id);
+		$this->load->view('user/collection',$data);
+		}
+		$this->load->view('user/footer');
+	}
 	public function cart()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/cart');
 		$this->load->view('user/footer');
@@ -39,6 +59,8 @@ class User extends CI_Controller {
 	public  function single()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$p_id=$this->uri->segment(3);
 		if(!empty($p_id))
@@ -48,9 +70,53 @@ class User extends CI_Controller {
 		}
 		$this->load->view('user/footer');
 	}
+	public  function gift()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$cat_id=$this->uri->segment(3);
+		if(!empty($cat_id))
+		{
+		$data['product_info']=$this->model->get_productByGift($cat_id);
+		$this->load->view('user/gift',$data);
+		}
+		$this->load->view('user/footer');
+	}
+	public function single_collection()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$p_id=$this->uri->segment(3);
+		if(!empty($p_id))
+		{
+		$data['product_info']=$this->model->get_CollectionProductByID($p_id);
+		$this->load->view('user/single_collection',$data);
+		}
+		$this->load->view('user/footer');
+	}
+	public function single_gift()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$p_id=$this->uri->segment(3);
+		if(!empty($p_id))
+		{
+		$data['product_info']=$this->model->get_GiftProductByID($p_id);
+		$this->load->view('user/single_gift',$data);
+		}
+		$this->load->view('user/footer');
+	}
 	public  function series()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/series');
 		$this->load->view('user/footer');
@@ -58,6 +124,8 @@ class User extends CI_Controller {
 	public  function style()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/style');
 		$this->load->view('user/footer');
@@ -65,6 +133,8 @@ class User extends CI_Controller {
 	public  function video()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/video');
 		$this->load->view('user/footer');
@@ -72,6 +142,8 @@ class User extends CI_Controller {
 	public  function blog()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/blog');
 		$this->load->view('user/footer');
@@ -79,6 +151,8 @@ class User extends CI_Controller {
 	public  function about()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/about');
 		$this->load->view('user/footer');
@@ -86,6 +160,8 @@ class User extends CI_Controller {
 	public function gifting()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/gifting');
 		$this->load->view('user/footer');
@@ -93,6 +169,8 @@ class User extends CI_Controller {
 	public function gifting_occasions()
 	{
 		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/gift_occasions');
 		$this->load->view('user/footer');
@@ -102,6 +180,42 @@ class User extends CI_Controller {
 	if($this->input->post('pid'))
 	{
 	$product=$this->model->get_productByID($this->input->post('pid'));
+	$data = array(
+    'id'      => $product[0]->p_id,
+    'qty'     => 1,
+    'myqty'     => $product[0]->p_qty,
+    'p_unit'     => $product[0]->p_unit,
+    'price'   => $product[0]->d_price,
+    'name'    => $product[0]->p_name,
+    'image'    => $product[0]->p_img1,
+	);
+	$insert=$this->cart->insert($data);
+	echo $insert?'ok':'err';
+	}
+	}
+	public function add_to_cart_collection()
+	{
+	if($this->input->post('pid'))
+	{
+	$product=$this->model->get_CollectionProductByID($this->input->post('pid'));
+	$data = array(
+    'id'      => $product[0]->p_id,
+    'qty'     => 1,
+    'myqty'     => $product[0]->p_qty,
+    'p_unit'     => $product[0]->p_unit,
+    'price'   => $product[0]->d_price,
+    'name'    => $product[0]->p_name,
+    'image'    => $product[0]->p_img1,
+	);
+	$insert=$this->cart->insert($data);
+	echo $insert?'ok':'err';
+	}
+	}
+	public function add_to_cart_gift()
+	{
+	if($this->input->post('pid'))
+	{
+	$product=$this->model->get_GiftProductByID($this->input->post('pid'));
 	$data = array(
     'id'      => $product[0]->p_id,
     'qty'     => 1,

@@ -457,13 +457,739 @@ class Admin extends CI_Controller {
 			$this->session->set_flashdata('msg',"Something went wrong");
 			return redirect(base_url().'admin/location');
 		}
-
-
 	}
+	public function collection()
+	{
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/collection');
+		$this->load->view('admin/footer');
+	}
+	public function add_collection()
+	{
+		$config=[
+			'upload_path'=>'./upload/product_image',
+			'allowed_types'=>'gif|jpg|png|pdf|jpeg'
+		];
+		$this->load->library('upload',$config);
+		$this->form_validation->set_rules('cat_name','Category Name','required|is_unique[collection_category.cat_name]');
+		if($this->form_validation->run() && $this->upload->do_upload('cat_image'))
+		{
+			$cat_name=$this->input->post('cat_name');
+			$cat_status=$this->input->post('cat_status');
+			$image=$this->upload->data();
+			$cat_image="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			$data=array(
+				'cat_name'=>$cat_name,
+				'cat_status'=>$cat_status,
+				'cat_image'=>$cat_image
+			);
+			if($this->model->add_collection($data))
+			{
+				$this->session->set_flashdata('msg','Category added successfully.');
+				return redirect(base_url().'admin/collection');
+			}
+			else
+			{
+				$this->session->set_flashdata('msg',"Something went wrong/. Try again later.");
+				return redirect(base_url().'admin/collection');
+			}
+		}
+		else
+		{
+		$data['upload_error']=$this->upload->display_errors('<p class="text-danger">', '</p>');
+		$this->check_login();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/collection',$data);
+		$this->load->view('admin/footer');
+		}
+	}
+	public function all_collection()
+	{
+		$this->check_login();
+		$data['collection']=$this->model->get_collection();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/all_collection',$data);
+		$this->load->view('admin/footer');
+	}
+	public function delete_collection($cat_id)
+	{
+		$data=$this->model->get_collection($cat_id);
+		$cat_image=$data[0]->cat_image;
+		if(!empty($cat_image))
+		{
+			@unlink($cat_image);
+		}
+		if($this->model->delete_collection($cat_id))
+		{
+			$this->session->set_flashdata('msg',"Category deleted successfully");
+			return redirect(base_url().'admin/all_collection');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg','Something went wrong');
+			return redirect(base_url().'admin/all_collection');
+		}
+	}
+	public function edit_collection($cat_id)
+	{
+		$this->check_login();
+		$data['collection']=$this->model->get_collection($cat_id);
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/edit_collection',$data);
+		$this->load->view('admin/footer');
+	}
+	public function update_collection()
+	{
+		$config=[
+			'upload_path'=>'./upload/product_image',
+			'allowed_types'=>'gif|jpg|png|pdf|jpeg'
+		];
+		$this->load->library('upload',$config);
+		$cat_name=$this->input->post('cat_name');
+		$cat_status=$this->input->post('cat_status');
+		$cat_id=$this->input->post('cat_id');
+		$data=$this->model->get_collection($cat_id);
+		$old_cat_image=$data[0]->cat_image;
+		if($this->upload->do_upload('cat_image'))
+		{
+			if(!empty($old_cat_image))
+			{
+				unlink($old_cat_image);
+			}
+			$image=$this->upload->data();
+			$cat_image="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$cat_image=$old_cat_image;
+		}
+		$data=array(
+			'cat_name'=>$cat_name,
+			'cat_status'=>$cat_status,
+			'cat_image'=>$cat_image
+		);
+		if($this->model->update_collection($data,$cat_id))
+		{
+			$this->session->set_flashdata('msg',"Category updated successfully");
+			return redirect(base_url().'admin/all_collection');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/all_collection');
+		}
+	}
+	public function collections()
+	{
+		$this->check_login();
+		$data['collection']=$this->model->get_collection();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/collections',$data);
+		$this->load->view('admin/footer');
+	}
+	public function add_collections()
+	{
+		$config=[
+			'upload_path'=>'./upload/product_image',
+			'allowed_types'=>'gif|jpg|png|pdf|jpg'
+		];
+		$this->load->library('upload',$config);
+		if($this->form_validation->run('products') && $this->upload->do_upload('p_img1'))
+		{
+			$cat_id=$this->input->post('cat_id');
+			$p_name=$this->input->post('p_name');
+			$p_qty=$this->input->post('p_qty');
+			$m_price=$this->input->post('m_price');
+			$d_price=$this->input->post('d_price');
+			$p_unit=$this->input->post('p_unit');
+			$availability=$this->input->post('availability');
+			$status=$this->input->post('status');
+			$p_description=$this->input->post('p_description');
+			$d=$m_price-$d_price;
+			$offer=($d/$m_price)*100;
+			$image=$this->upload->data();
+			$p_img1="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 if($this->upload->do_upload('p_img2'))
+			 {
+			 	 $image=$this->upload->data();
+			 	 $p_img2="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 }
+			 else
+			 {
+			 	$p_img2='';	
+			 }
+			 if($this->upload->do_upload('p_img3'))
+			 {
+			 	 $image=$this->upload->data();
+			 	 $p_img3="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 }
+			 else
+			 {
+			 	$p_img3='';	
+			 }
+			 if($this->upload->do_upload('p_img4'))
+			 {
+			 	 $image=$this->upload->data();
+			 	 $p_img4="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 }
+			 else
+			 {
+			 	$p_img4='';	
+			 }
+			$data=array(
+				'cat_id'=>$cat_id,
+				'p_name'=>$p_name,
+				'p_qty'=>$p_qty,
+				'p_unit'=>$p_unit,
+				'm_price'=>$m_price,
+				'd_price'=>$d_price,
+				'offer'=>number_format($offer),
+				'availability'=>$availability,
+				'status'=>$status,
+				'p_description'=>$p_description,
+				'p_img1'=>$p_img1,
+				'p_img2'=>$p_img2,
+				'p_img3'=>$p_img3,
+				'p_img4'=>$p_img4
+			);
+			if($this->model->add_collections($data))
+			{
+		  	 	$this->session->set_flashdata('msg', "Product added successfully");
+  				return redirect(base_url().'admin/collections');
+			}
+			else
+			{
+				$this->session->set_flashdata('msg', "Something went wrong");
+  				return redirect(base_url().'admin/collections');
+			}
+		}
+		else
+		{
+			$this->check_login();
+			$data['collection']=$this->model->get_collection();
+			$data['upload_error']=$this->upload->display_errors('<p class="text-danger">', '</p>');
+		 	$this->load->view('admin/header');
+		 	$this->load->view('admin/sidebar');
+			$this->load->view('admin/collections',$data);
+			$this->load->view('admin/footer');
+		}
+	}
+	public function all_collections()
+	{
+		$this->check_login();
+		$data['product']=$this->model->get_collections();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/all_collections',$data);
+		$this->load->view('admin/footer');
+	}
+	public function delete_collections($p_id)
+	{
+		$data=$this->model->get_collections($p_id);
+		$p_img1=$data[0]->p_img1;
+		$p_img2=$data[0]->p_img2;
+		$p_img3=$data[0]->p_img3;
+		$p_img4=$data[0]->p_img4;
+		if(!empty($p_img1)){@unlink($p_img1);}
+		if(!empty($p_img2)){@unlink($p_img2);}
+		if(!empty($p_img3)){@unlink($p_img3);}
+		if(!empty($p_img4)){@unlink($p_img4);}
+		if($this->model->delete_collections($p_id))
+		{
+			$this->session->set_flashdata('msg',"Product deleted successfully");
+			return redirect(base_url().'admin/all_collections');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/all_collections');
+		}
+	}
+	public function edit_collections($p_id)
+	{
+		$this->check_login();
+		$data['collection']=$this->model->get_collection();
+		$data['product_info']=$this->model->get_collections($p_id);
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/edit_collections',$data);
+		$this->load->view('admin/footer');
+	}
+	public function update_collections()
+	{
+		$config=[
+			'upload_path'=>'./upload/product_image/',
+			'allowed_types'=>'gif|jpg|png|pdf|jpeg'
+		];
+		$this->load->library('upload',$config);
+		$p_id=$this->input->post('p_id');
+		$data=$this->model->get_collections($p_id);
+		$old_p_img1=$data[0]->p_img1;
+		$old_p_img2=$data[0]->p_img2;
+		$old_p_img3=$data[0]->p_img3;
+		$old_p_img4=$data[0]->p_img4;
+		$cat_id=$this->input->post('cat_id');
+		$p_name=$this->input->post('p_name');
+		$p_qty=$this->input->post('p_qty');
+		$m_price=$this->input->post('m_price');
+		$d_price=$this->input->post('d_price');
+		$p_unit=$this->input->post('p_unit');
+		$availability=$this->input->post('availability');
+		$status=$this->input->post('status');
+		$p_description=$this->input->post('p_description');
+		$d=$m_price-$d_price;
+		$offer=($d/$m_price)*100;
+		if($this->upload->do_upload('p_img1'))
+		{
+			if(!empty($old_p_img1))
+			{
+				unlink($old_p_img1);
+			}
+			$image=$this->upload->data();
+			$p_img1="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img1=$old_p_img1;
+		}
+		if($this->upload->do_upload('p_img2'))
+		{
+			if(!empty($old_p_img2))
+			{
+				unlink($old_p_img2);//product image remove
+			}
+			$image=$this->upload->data();
+			$p_img2="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img2=$old_p_img2;
+		}
+		if($this->upload->do_upload('p_img3'))
+		{
+			if(!empty($old_p_img3))
+			{
+				unlink($old_p_img3);//product image remove
+			}
+			$image=$this->upload->data();
+			$p_img3="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img3=$old_p_img3;
+		}
+		if($this->upload->do_upload('p_img4'))
+		{
+			if(!empty($old_p_img4))
+			{
+				unlink($old_p_img4);//product image remove
+			}
+			$image=$this->upload->data();
+			$p_img4="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img4=$old_p_img4;
+		}
 
+		$data=array(
+			'cat_id'=>$cat_id,
+			'p_name'=>$p_name,
+			'p_qty'=>$p_qty,
+			'p_unit'=>$p_unit,
+			'm_price'=>$m_price,
+			'd_price'=>$d_price,
+			'offer'=>number_format($offer),
+			'availability'=>$availability,
+			'status'=>$status,
+			'p_description'=>$p_description,
+			'p_img1'=>$p_img1,
+			'p_img2'=>$p_img2,
+			'p_img3'=>$p_img3,
+			'p_img4'=>$p_img4
+		);
+		if($this->model->update_collections($data,$p_id))
+		{
+			$this->session->set_flashdata('msg',"Product updated successfully");
+			return redirect(base_url().'admin/all_collections');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/all_collections');
+		}
+	}
+	public function gift()
+	{
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/gift');
+		$this->load->view('admin/footer');
+	}
+	public function add_gift()
+	{
+		$config=[
+			'upload_path'=>'./upload/product_image',
+			'allowed_types'=>'gif|jpg|png|pdf|jpeg'
+		];
+		$this->load->library('upload',$config);
+		$this->form_validation->set_rules('cat_name','Category Name','required|is_unique[gift_category.cat_name]');
+		if($this->form_validation->run() && $this->upload->do_upload('cat_image'))
+		{
+			$cat_name=$this->input->post('cat_name');
+			$cat_status=$this->input->post('cat_status');
+			$image=$this->upload->data();
+			$cat_image="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			$data=array(
+				'cat_name'=>$cat_name,
+				'cat_status'=>$cat_status,
+				'cat_image'=>$cat_image
+			);
+			if($this->model->add_gift($data))
+			{
+				$this->session->set_flashdata('msg','Category added successfully.');
+				return redirect(base_url().'admin/gift');
+			}
+			else
+			{
+				$this->session->set_flashdata('msg',"Something went wrong/. Try again later.");
+				return redirect(base_url().'admin/gift');
+			}
+		}
+		else
+		{
+		$data['upload_error']=$this->upload->display_errors('<p class="text-danger">', '</p>');
+		$this->check_login();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/gift',$data);
+		$this->load->view('admin/footer');
+		}
+	}
+	public function all_gift()
+	{
+		$this->check_login();
+		$data['gift']=$this->model->get_gift();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/all_gift',$data);
+		$this->load->view('admin/footer');
+	}
+	public function delete_gift($cat_id)
+	{
+	$data=$this->model->get_gift($cat_id);
+		$cat_image=$data[0]->cat_image;
+		if(!empty($cat_image))
+		{
+			@unlink($cat_image);
+		}
+		if($this->model->delete_gift($cat_id))
+		{
+			$this->session->set_flashdata('msg',"Category deleted successfully");
+			return redirect(base_url().'admin/all_gift');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg','Something went wrong');
+			return redirect(base_url().'admin/all_gift');
+		}	
+	}
+	public function edit_gift($cat_id)
+	{
+	$this->check_login();
+	$data['gift']=$this->model->get_gift($cat_id);
+	$this->load->view('admin/header');
+	$this->load->view('admin/sidebar');
+	$this->load->view('admin/edit_gift',$data);
+	$this->load->view('admin/footer');
+	}
+	public function update_gift()
+	{
+		$config=[
+			'upload_path'=>'./upload/product_image',
+			'allowed_types'=>'gif|jpg|png|pdf|jpeg'
+		];
+		$this->load->library('upload',$config);
+		$cat_name=$this->input->post('cat_name');
+		$cat_status=$this->input->post('cat_status');
+		$cat_id=$this->input->post('cat_id');
+		$data=$this->model->get_gift($cat_id);
+		$old_cat_image=$data[0]->cat_image;
+		if($this->upload->do_upload('cat_image'))
+		{
+			if(!empty($old_cat_image))
+			{
+				unlink($old_cat_image);
+			}
+			$image=$this->upload->data();
+			$cat_image="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$cat_image=$old_cat_image;
+		}
+		$data=array(
+			'cat_name'=>$cat_name,
+			'cat_status'=>$cat_status,
+			'cat_image'=>$cat_image
+		);
+		if($this->model->update_gift($data,$cat_id))
+		{
+			$this->session->set_flashdata('msg',"Category updated successfully");
+			return redirect(base_url().'admin/all_gift');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/all_gift');
+		}
+	}
+	public function gifts()
+	{
+		$this->check_login();
+		$data['gift']=$this->model->get_gift();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/gifts',$data);
+		$this->load->view('admin/footer');
+	}
+	public function add_gifts()
+	{
+		$config=[
+			'upload_path'=>'./upload/product_image',
+			'allowed_types'=>'gif|jpg|png|pdf|jpg'
+		];
+		$this->load->library('upload',$config);
+		if($this->form_validation->run('products') && $this->upload->do_upload('p_img1'))
+		{
+			$cat_id=$this->input->post('cat_id');
+			$p_name=$this->input->post('p_name');
+			$p_qty=$this->input->post('p_qty');
+			$m_price=$this->input->post('m_price');
+			$d_price=$this->input->post('d_price');
+			$p_unit=$this->input->post('p_unit');
+			$availability=$this->input->post('availability');
+			$status=$this->input->post('status');
+			$p_description=$this->input->post('p_description');
+			$d=$m_price-$d_price;
+			$offer=($d/$m_price)*100;
+			$image=$this->upload->data();
+			$p_img1="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 if($this->upload->do_upload('p_img2'))
+			 {
+			 	 $image=$this->upload->data();
+			 	 $p_img2="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 }
+			 else
+			 {
+			 	$p_img2='';	
+			 }
+			 if($this->upload->do_upload('p_img3'))
+			 {
+			 	 $image=$this->upload->data();
+			 	 $p_img3="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 }
+			 else
+			 {
+			 	$p_img3='';	
+			 }
+			 if($this->upload->do_upload('p_img4'))
+			 {
+			 	 $image=$this->upload->data();
+			 	 $p_img4="upload/product_image/".$image['raw_name'].$image['file_ext'];
+			 }
+			 else
+			 {
+			 	$p_img4='';	
+			 }
+			$data=array(
+				'cat_id'=>$cat_id,
+				'p_name'=>$p_name,
+				'p_qty'=>$p_qty,
+				'p_unit'=>$p_unit,
+				'm_price'=>$m_price,
+				'd_price'=>$d_price,
+				'offer'=>number_format($offer),
+				'availability'=>$availability,
+				'status'=>$status,
+				'p_description'=>$p_description,
+				'p_img1'=>$p_img1,
+				'p_img2'=>$p_img2,
+				'p_img3'=>$p_img3,
+				'p_img4'=>$p_img4
+			);
+			if($this->model->add_gifts($data))
+			{
+		  	 	$this->session->set_flashdata('msg', "Product added successfully");
+  				return redirect(base_url().'admin/gifts');
+			}
+			else
+			{
+				$this->session->set_flashdata('msg', "Something went wrong");
+  				return redirect(base_url().'admin/gifts');
+			}
+		}
+		else
+		{
+			$this->check_login();
+			$data['gift']=$this->model->get_gift();
+			$data['upload_error']=$this->upload->display_errors('<p class="text-danger">', '</p>');
+		 	$this->load->view('admin/header');
+		 	$this->load->view('admin/sidebar');
+			$this->load->view('admin/gifts',$data);
+			$this->load->view('admin/footer');
+		}
+	}
+	public function all_gifts()
+	{
+		$this->check_login();
+		$data['gift']=$this->model->get_gifts();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/all_gifts',$data);
+		$this->load->view('admin/footer');
+	}
+	public function delete_gifts($p_id)
+	{
+		$data=$this->model->get_gifts($p_id);	
+		$p_img1=$data[0]->p_img1;
+		$p_img2=$data[0]->p_img2;
+		$p_img3=$data[0]->p_img3;
+		$p_img4=$data[0]->p_img4;
+		if(!empty($p_img1)){@unlink($p_img1);}
+		if(!empty($p_img2)){@unlink($p_img2);}
+		if(!empty($p_img3)){@unlink($p_img3);}
+		if(!empty($p_img4)){@unlink($p_img4);}
+		if($this->model->delete_gifts($p_id))
+		{
+			$this->session->set_flashdata('msg',"Product deleted successfully");
+			return redirect(base_url().'admin/all_gifts');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/all_gifts');
+		}
+	}
+	public function edit_gifts($p_id)
+	{
+		$this->check_login();
+		$data['gift']=$this->model->get_gift();
+		$data['product_info']=$this->model->get_gifts($p_id);
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/edit_gifts',$data);
+		$this->load->view('admin/footer');
+	}
+	public function update_gifts()
+	{
+	$config=[
+			'upload_path'=>'./upload/product_image/',
+			'allowed_types'=>'gif|jpg|png|pdf|jpeg'
+		];
+		$this->load->library('upload',$config);
+		$p_id=$this->input->post('p_id');
+		$data=$this->model->get_gifts($p_id);
+		$old_p_img1=$data[0]->p_img1;
+		$old_p_img2=$data[0]->p_img2;
+		$old_p_img3=$data[0]->p_img3;
+		$old_p_img4=$data[0]->p_img4;
+		$cat_id=$this->input->post('cat_id');
+		$p_name=$this->input->post('p_name');
+		$p_qty=$this->input->post('p_qty');
+		$m_price=$this->input->post('m_price');
+		$d_price=$this->input->post('d_price');
+		$p_unit=$this->input->post('p_unit');
+		$availability=$this->input->post('availability');
+		$status=$this->input->post('status');
+		$p_description=$this->input->post('p_description');
+		$d=$m_price-$d_price;
+		$offer=($d/$m_price)*100;
+		if($this->upload->do_upload('p_img1'))
+		{
+			if(!empty($old_p_img1))
+			{
+				unlink($old_p_img1);
+			}
+			$image=$this->upload->data();
+			$p_img1="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img1=$old_p_img1;
+		}
+		if($this->upload->do_upload('p_img2'))
+		{
+			if(!empty($old_p_img2))
+			{
+				unlink($old_p_img2);//product image remove
+			}
+			$image=$this->upload->data();
+			$p_img2="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img2=$old_p_img2;
+		}
+		if($this->upload->do_upload('p_img3'))
+		{
+			if(!empty($old_p_img3))
+			{
+				unlink($old_p_img3);//product image remove
+			}
+			$image=$this->upload->data();
+			$p_img3="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img3=$old_p_img3;
+		}
+		if($this->upload->do_upload('p_img4'))
+		{
+			if(!empty($old_p_img4))
+			{
+				unlink($old_p_img4);//product image remove
+			}
+			$image=$this->upload->data();
+			$p_img4="upload/product_image/".$image['raw_name'].$image['file_ext'];
+		}
+		else
+		{
+			$p_img4=$old_p_img4;
+		}
 
-
-
+		$data=array(
+			'cat_id'=>$cat_id,
+			'p_name'=>$p_name,
+			'p_qty'=>$p_qty,
+			'p_unit'=>$p_unit,
+			'm_price'=>$m_price,
+			'd_price'=>$d_price,
+			'offer'=>number_format($offer),
+			'availability'=>$availability,
+			'status'=>$status,
+			'p_description'=>$p_description,
+			'p_img1'=>$p_img1,
+			'p_img2'=>$p_img2,
+			'p_img3'=>$p_img3,
+			'p_img4'=>$p_img4
+		);
+		if($this->model->update_gifts($data,$p_id))
+		{
+			$this->session->set_flashdata('msg',"Product updated successfully");
+			return redirect(base_url().'admin/all_gifts');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg',"Something went wrong");
+			return redirect(base_url().'admin/all_gifts');
+		}
+	}
 
 
 

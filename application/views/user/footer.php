@@ -139,11 +139,18 @@
     <script src="<?php echo base_url();?>/assets/js/bootstrap.min.js" ></script>
     <script src="<?php echo base_url();?>/assets/js/owl.carousel.min.js"></script>
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script>
+   $(document).ready(function() {
+  $('.my_gallery').magnificPopup({delegate: 'a',gallery: {
+      enabled: true
+    },type:'image'});
+});
+</script>
     <script>
     $(document).ready(function(){
       $('#getMyLocation').click(function(){
 
-        $('#pincode').val('you will get pincode soon');
+        //$('#pincode').val('you will get pincode soon');
           $.ajax({
   url: "https://geolocation-db.com/jsonp",
   jsonpCallback: "callback",
@@ -290,32 +297,54 @@
                      }
                   });
                });
+            $(".addToCartCollection").on('click',function(e){
+                  e.preventDefault();
+                  var $form=$(this).closest(".form-submit");
+                  var pid=$form.find(".pid").val();
+                  $.ajax({
+                     url:"<?php echo base_url('user/add_to_cart_collection/');?>",
+                     method:"POST",
+                     data:{pid:pid},
+                     success:function(data)
+                     {
+                        if(data =='ok')
+                        {
+                        swal("Success!", "Your item added into the Cart!", "success").then(function(){ 
+                        location.reload();
+                        });
+                        }
+                        else
+                        {
+                        swal("Opps!", "Cart update failed, please try again", "error");
+                        }
+                     }
+                  });
+               });
+            $(".addToCartGift").on('click',function(e){
+                  e.preventDefault();
+                  var $form=$(this).closest(".form-submit");
+                  var pid=$form.find(".pid").val();
+                  $.ajax({
+                     url:"<?php echo base_url('user/add_to_cart_gift/');?>",
+                     method:"POST",
+                     data:{pid:pid},
+                     success:function(data)
+                     {
+                        if(data =='ok')
+                        {
+                        swal("Success!", "Your item added into the Cart!", "success").then(function(){ 
+                        location.reload();
+                        });
+                        }
+                        else
+                        {
+                        swal("Opps!", "Cart update failed, please try again", "error");
+                        }
+                     }
+                  });
+               });
       });
-      // ('.my_gallery').magnificPopup({
-      //     type:'image',
-      //     delegate:'a',
-      //     gallery:{enabled:true}
-      //   });
     </script>
-    
-  <!-- <script type="text/javascript">
-    $('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    nav:false,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
-        }
-    }
-});
-  </script> -->
   <script>
   $(document).ready(function(){
 
