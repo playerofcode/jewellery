@@ -159,6 +159,29 @@
      $('#pincode').val(location.postal);
   }
 });//ajax close
+          $('.locationFinder').click(function(e){
+            e.preventDefault();
+            alert('Hello');
+              var pincode=$('#pincode').val();
+              $.ajax({
+                url:"<?php echo base_url('user/locationFinder/');?>",
+                method:"POST",
+                data:{pincode:pincode},
+                success:function(data)
+                {
+                  if(data =='ok')
+                  {
+                    swal("Success!", "Jewellery Website available in your location", "success").then(function(){
+            location.reload();
+            });
+                  }
+                  else
+                  {
+                  swal("Sorry!", "Jewellery Website not available in your location", "warning");
+                  }
+                }
+              });
+          });
       });
       $("#registerform").submit(function(e){
         e.preventDefault();

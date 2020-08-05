@@ -1,5 +1,12 @@
 
 <div class="container-fluid">
+	<div class="row py-2">
+		<div class="col-md-6 col-10 mx-auto">
+			<?php if($this->session->flashdata('msg')): ?>
+                     <div class="alert alert-success"><?php echo $this->session->flashdata('msg');?></div>
+                    <?php endif;?>
+		</div>
+	</div>
 	<div class="row py-5">
 		<div class="col-md-8">
 			<h4 class="text-center"> Cart Item(s)</h4>
@@ -48,11 +55,11 @@
 							</select>
 						</td>
 						<td>
-							<form action="">   
+							<form  method="post">   
 							<div class="input-group mb-3">
-  								<input type="text" class="form-control" placeholder="Pin Code" style="border-radius: 50px 0 0 50px;">
+  								<input type="text" id="pincode" value="525252" class="form-control"  placeholder="Pin Code" style="border-radius: 50px 0 0 50px;">
   							<div class="input-group-append">
-    						<button class="btn btn-danger" type="submit" style="border-radius:0 50px 50px 0;">CHECK</button>
+    						<button class="locationFinder btn btn-danger" type="submit" style="border-radius:0 50px 50px 0;">CHECK</button>
   							</div>
 							</div>
 							</form>
@@ -110,7 +117,9 @@
  							<td colspan="2"><b>INCLUSIVE OF ALL TAXES*</b></td>
  						</tr>
  					</table>
- 					<button class="btn btn-danger form-control text-uppercase py-2" style="border-radius: 50px;">proceed to checkout</button>
+ 					<form action="<?php echo base_url('user/checkout');?>" method="post">
+ 					<button <?php if(empty($this->cart->total_items())){echo 'disabled';}?> type="submit" class="btn btn-danger form-control text-uppercase py-2" style="border-radius: 50px;">proceed to checkout</button>
+ 					</form>
  					<div class="py-3 text-center"><a href="" class="custom-color text-uppercase">continue shopping</a></div>
  				</div>
  			</div>

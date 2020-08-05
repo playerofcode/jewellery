@@ -27,7 +27,7 @@ class Admin extends CI_Controller {
   				return redirect(base_url().'admin/index');
 			}
 		}
-		public function check_login()
+	public function check_login()
 	{
 		if(empty($this->session->userdata('email')))
 		{
@@ -1190,7 +1190,39 @@ class Admin extends CI_Controller {
 			return redirect(base_url().'admin/all_gifts');
 		}
 	}
-
+	public function customer_list()
+	{
+		$data['customer_list']=$this->model->customer_list();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/customer_list',$data);
+		$this->load->view('admin/footer');
+	}
+	public function new_order()
+	{
+		$data['order']=$this->model->getNewOrder();	
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/order',$data);
+		$this->load->view('admin/footer');
+	}
+	public function order_item_info($order_id)
+	{
+		$this->load->library('pdf');
+		if($order_id)
+		{
+			$html_content='<h1 align="center" style="color:orange;">Jewellery Website</h1>';
+			$html_content.=$this->model->orderItem($order_id);
+			$this->pdf->loadHtml($html_content);
+			$this->pdf->render();
+			$this->pdf->stream("Order",array("Attachment"=>0));
+		}
+		else
+		{
+		$this->session->set_flashdata('msg', "Unable to find Order");
+			return redirect(base_url().'admin/order');	
+		}
+	}
 
 
 }

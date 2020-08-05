@@ -6,7 +6,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Customer List</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Order List</li>
                                 </ol>
                             </nav>
                         </div>
@@ -14,9 +14,6 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -52,7 +49,7 @@
                                                 <td><?php echo $key->address; ?></td>
                                                 <td><?php echo 'Rs '.$key->grand_total; ?></td>
                                                 <td><span class=" badge badge-danger"><?php echo $key->status; ?></span></td>
-                                                <td><input type="button" class="view_data btn btn-info btn-sm" name="view" value="View" id="<?php echo $key->order_id; ?>"></td>
+                                                <td><a class="view_data btn btn-info btn-sm" href="<?php echo base_url('admin/order_item_info/'.$key->order_id);?>">View</a></td>
                                             <?php $i++;endforeach ?>
                                         </tbody>
                                     </table>

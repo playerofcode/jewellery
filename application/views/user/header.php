@@ -138,6 +138,8 @@ position: relative;
           <?php 
         if(!empty($this->session->userdata('email')))
         {?>
+        <a class="text-white" href="<?php echo base_url('user/track_order');?>">Track Order</a>
+        <a class="text-white" href="<?php echo base_url('user/order_history');?>">Order History</a>
         <a class="text-white" href="<?php echo base_url('user/logout');?>">Logout</a>
           <?php }else{?>
          <a class="text-white" href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Login</a>

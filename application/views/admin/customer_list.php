@@ -14,9 +14,6 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -32,6 +29,9 @@
                                                 <th>Customer Name</th>
                                                 <th>Mobile Number</th>
                                                 <th>Email</th>
+                                                <th>State</th>
+                                                <th>City</th>
+                                                <th>Zipcode</th>
                                                 <th>Address</th>
                                             </tr>
                                         </thead>
@@ -44,6 +44,9 @@
                                                 <td><?php echo $key->name; ?></td>
                                                 <td><?php echo $key->mobno; ?></td>
                                                 <td><?php echo $key->email; ?></td>
+                                                <td><?php echo $key->state; ?></td>
+                                                <td><?php echo $key->city; ?></td>
+                                                <td><?php echo $key->zipcode; ?></td>
                                                 <td><?php echo $key->address; ?></td>
                                             <?php $i++;endforeach ?>
                                         </tbody>

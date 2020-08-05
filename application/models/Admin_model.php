@@ -171,6 +171,36 @@ class Admin_model extends CI_model
 	$this->db->where('p_id',$p_id);
 	return $this->db->update('gifts',$data);
 	}
+	public function customer_list()
+	{
+		$this->db->order_by('id','DESC');
+		return $this->db->get('customers')->result();
+	}
+	public function getNewOrder()
+	{
+		$this->db->order_by('order_id','DESC');
+		return $this->db->get_where('orders',array('status'=>'new_order'))->result();
+	}
+	public function orderItem($order_id)
+	{
+		$result=$this->db->get_where('order_items',array('order_id'=>$order_id))->result();
+		$output ='<table border="1" cellpadding="5" cellspacing="0" width="100%">';
+  		$output.='<tr>
+		              <td>Product ID</td>
+					  <td>Product Name</td>
+		              <td>Quantity</td>
+		              <td>Sub Total</td>
+	             </tr>';	
+	    	
+	    foreach ($result as $key) {
+	    $output.='<tr><td>'.$key->product_id.'</td>';
+	    $output.='<td>'.$key->product_name.'</td>';
+	    $output.='<td>'.$key->quantity.'</td>';
+	    $output.='<td>'.$key->sub_total.'</td></tr>';
+	    }
+	    $output.='</table>';
+	    return $output;
+	}
 }
 ?>
 

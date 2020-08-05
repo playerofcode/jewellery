@@ -5,6 +5,9 @@ class User extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		include APPPATH . 'third_party/src/Payment.php';
+		include APPPATH . 'third_party/src/Validator.php';
+		include APPPATH . 'third_party/src/Crypto.php';
 		$this->load->model('User_model','model');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 		$this->load->library('cart');
@@ -251,6 +254,15 @@ class User extends CI_Controller {
 			echo $remove?'ok':'err';
 		}
 	}
+	public function locationFinder()
+	{
+		$pincode=$this->input->post('pincode');
+		if($pincode)
+		{
+			$res=$this->model->locationFinder($pincode);
+			echo $res?'ok':'err';
+		}
+	}
 	public function register()
 	{
 		$form=$this->input->post();
@@ -286,6 +298,262 @@ class User extends CI_Controller {
 		$this->session->unset_userdata('email');
 		return redirect(base_url().'user/index');
 	}
+	public function check_login()
+	{
+		if(empty($this->session->userdata('email')))
+		{
+		$this->session->set_flashdata('msg', "Please login to continue");
+		redirect(base_url().'user/cart');
+		}
+	}
+	public function checkout()
+	{
+		$this->check_login();
+		if($this->cart->total_items()>0){
+		$email=$this->session->userdata('email');
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$data['customer_info']=$this->model->getProfile($email);
+		$this->load->view('user/header',$data);
+		$this->load->view('user/checkout',$data);
+		$this->load->view('user/footer');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg', "Your Cart is empty!. Buy something to checkout");
+  			return redirect(base_url().'user/cart');
+		}
+	}
+	//payment Checkout Option Here
+	public function place_order()
+	{
+	$customer_id=$this->input->post('customer_id');
+    $name=$this->input->post('name');
+	$mobno=$this->input->post('mobno');
+	$state=$this->input->post('state');
+	$city=$this->input->post('city');
+	$zipcode=$this->input->post('zipcode');
+	$address=$this->input->post('address');
+	$grand_total=$this->input->post('grand_total');
+	$data=array(
+		'customer_id'=>$customer_id,
+		'customer_name'=>$name,
+		'mobno'=>$mobno,
+		'state'=>$state,
+		'city'=>$city,
+		'zipcode'=>$zipcode,
+		'address'=>$address,
+		'grand_total'=>$grand_total,
+		'status'=>'new_order'
+	);
+		$order_id=$this->model->place_order($data);
+		if($order_id)
+		{
+			$cartItems =$this->cart->contents();
+			$ordItemData = array();
+			$i=0;
+			foreach ($cartItems as $item) {
+				$ordItemData[$i]['order_id']=$order_id ;
+				$ordItemData[$i]['product_id']=$item['id'];
+				$ordItemData[$i]['product_name']=$item['name'];
+				$ordItemData[$i]['quantity']=$item['qty'];
+				$ordItemData[$i]['sub_total']=$item['subtotal'];
+				$i++;
+			}
+			if(!empty($ordItemData))
+			{
+				$insertItem=$this->model->place_orderItems($ordItemData);
+				if($insertItem)
+				{
+					//$data['insertItem']=$insertItem;
+					$this->cart->destroy();
+					$this->session->set_flashdata('order_id', $order_id);
+					return redirect(base_url().'user/success');
+				}
+			}
+
+		}
+		else
+		{
+			$this->session->set_flashdata('msg', "Something went wrong. Try again");
+  			return redirect(base_url().'user/checkout');
+		}
+	}
+	public function success()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$this->load->view('user/success');
+		$this->load->view('user/footer');
+	}
+	public function payment_form()
+	{
+		$this->load->view('user/payment_form');
+	}
+	public function payment_checkout()
+	{
+		$products='';
+		foreach ($this->cart->contents() as $items){
+			$products .=$items['name']." ";
+		}
+$fname          = $this->input->post('name');
+$product_name   = $products;
+$email          = $this->session->userdata('email');
+$amount         = $this->input->post('grand_total');
+$contact        = $this->input->post('mobno');
+$country        = 'India';
+$state          = $this->input->post('state');
+$city           = $this->input->post('city');
+$postalcode     = $this->input->post('postalcode');
+$address        = $this->input->post('address');
+$custom_field_1 = $this->input->post('customer_id');
+$obj = new \Paykun\Checkout\Payment('907827924705710', '9ADEC6FF0C1804049C84F02B0871B3AC', 'CA4CF211861A319F3A993FE8A672CC72', false,true);
+$successUrl=str_replace(base_url('user/checkout'),base_url('user/successpayment'), $_SERVER['HTTP_REFERER']);
+$failUrl=str_replace(base_url('user/checkout'),base_url('user/failurepayment'), $_SERVER['HTTP_REFERER']);
+$microtime = str_replace('.', '', microtime(true));
+$p_id=substr($microtime, 0, 14);
+$obj->initOrder($p_id, $product_name,  $amount, $successUrl,  $failUrl, 'INR');
+$obj->addCustomer($fname, $email, $contact);
+$obj->addShippingAddress('', '', '', '', '');
+$obj->addBillingAddress('', '', '', '', '');
+$obj->setCustomFields(array('udf_1' =>$custom_field_1.'0'));
+echo $obj->submit();
+	}
+	public function successpayment()
+	{
+		$obj = new \Paykun\Checkout\Payment('907827924705710', '9ADEC6FF0C1804049C84F02B0871B3AC', 'CA4CF211861A319F3A993FE8A672CC72', false,true);
+		$response = $obj->getTransactionInfo($_REQUEST['payment-id']);
+		if(is_array($response) && !empty($response)) {
+
+    if($response['status'] && $response['data']['transaction']['status'] == "Success") {
+    	$payment_id=$response['data']['transaction']['payment_id'];
+		$payment_mode=$response['data']['transaction']['payment_mode'];
+		$order_id=$response['data']['transaction']['order']['order_id'];
+		$payment_for=$response['data']['transaction']['order']['product_name'];
+ 	    $payment_status=$response['data']['transaction']['status'];
+		$amount=$response['data']['transaction']['order']['gross_amount'];
+		$name=$response['data']['transaction']['customer']['name'];
+		$email=$response['data']['transaction']['customer']['email_id'];
+		$mobno=$response['data']['transaction']['customer']['mobile_no'];
+		$customer_id=$response['data']['transaction']['custom_field_1'];
+		$data=array(
+			'payment_id'=>$payment_id,
+			'payment_mode'=>$payment_mode,
+			'order_id'=>$order_id,
+			'payment_for'=>$payment_for,
+			'payment_status'=>$payment_status,
+			'amount'=>$amount,
+			'name'=>$name,
+			'email'=>$email,
+			'mobno'=>$mobno,
+			'customer_id'=>$customer_id,
+		);
+		$email=$this->session->userdata('email');
+        if($this->model->save_payment_details($data))
+        {
+       //$this->session->set_flashdata('msg', "Transaction Success"); 
+		//redirect(base_url().'user/cart');
+        	$data=array(
+		'customer_id'=>$customer_id,
+		'customer_name'=>$name,
+		'mobno'=>$mobno,
+		//'state'=>$state,
+		//'city'=>$city,
+		//'zipcode'=>$zipcode,
+		//'address'=>$address,
+		'grand_total'=>$amount,
+		'status'=>'new_order'
+	);
+		$order_id=$this->model->place_order($data);
+		if($order_id)
+		{
+			$cartItems =$this->cart->contents();
+			$ordItemData = array();
+			$i=0;
+			foreach ($cartItems as $item) {
+				$ordItemData[$i]['order_id']=$order_id ;
+				$ordItemData[$i]['product_id']=$item['id'];
+				$ordItemData[$i]['product_name']=$item['name'];
+				$ordItemData[$i]['quantity']=$item['qty'];
+				$ordItemData[$i]['sub_total']=$item['subtotal'];
+				$i++;
+			}
+			if(!empty($ordItemData))
+			{
+				$insertItem=$this->model->place_orderItems($ordItemData);
+				if($insertItem)
+				{
+					//$data['insertItem']=$insertItem;
+					$this->cart->destroy();
+					$this->session->set_flashdata('order_id', $order_id);
+					return redirect(base_url().'user/success');
+				}
+			}
+
+		}
+		else
+		{
+			$this->session->set_flashdata('msg', "Something went wrong. Try again");
+  			return redirect(base_url().'user/checkout');
+		}
+		}
+    } 
+    else 
+    {
+        $this->session->set_flashdata('msg', "Transaction Failed"); 
+			redirect(base_url().'user/cart');
+    }
+	}
+	}
+	public function failurepayment()
+	{
+		$obj = new \Paykun\Checkout\Payment('907827924705710', '9ADEC6FF0C1804049C84F02B0871B3AC', 'CA4CF211861A319F3A993FE8A672CC72', false,true);
+		$response = $obj->getTransactionInfo($_REQUEST['payment-id']);
+		if(is_array($response) && !empty($response)) {
+		if($response['status'] && $response['data']['transaction']['status'] == "Failed") {
+        $this->session->set_flashdata('msg', "Transaction Failed"); 
+		redirect(base_url().'user/cart');
+    }
+	}
+	}
+	public function order_history()
+	{	$email=$this->session->userdata('email');
+		$data=$this->model->getOrderHistory($email);
+		$customer_id=$data[0]->id;
+		if($customer_id)
+		{
+		$data['orders']=$this->model->getOrderDetail($customer_id);
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$this->load->view('user/order_history',$data);
+		$this->load->view('user/footer');
+		}	
+	}
+	public function orderItemInfo($order_id)
+	{
+		$this->load->library('pdf');
+		if($order_id)
+		{
+			$html_content='<h1 align="center" style="color:orange;">Jewellery Webiste</h1>';
+			$html_content.=$this->model->orderItem($order_id);
+			$this->pdf->loadHtml($html_content);
+			$this->pdf->render();
+			$this->pdf->stream("Order",array("Attachment"=>0));
+		}
+		else
+		{
+		$this->session->set_flashdata('msg', "Unable to find Order");
+			return redirect(base_url().'user/cart');	
+		}
+	}
+
+
+
 }
 
 
