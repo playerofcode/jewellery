@@ -57,7 +57,7 @@
 						<td>
 							<form  method="post">   
 							<div class="input-group mb-3">
-  								<input type="text" id="pincode" value="525252" class="form-control"  placeholder="Pin Code" style="border-radius: 50px 0 0 50px;">
+  								<input type="text" id="pincode"  class="form-control"  placeholder="Pin Code" style="border-radius: 50px 0 0 50px;">
   							<div class="input-group-append">
     						<button class="locationFinder btn btn-danger" type="submit" style="border-radius:0 50px 50px 0;">CHECK</button>
   							</div>

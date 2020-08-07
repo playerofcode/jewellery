@@ -14,9 +14,6 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -37,6 +34,7 @@
                                                 <th>Grand Total</th>
                                                 <th>Order Status</th>
                                                 <th>Details</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -52,7 +50,17 @@
                                                 <td><?php echo $key->address; ?></td>
                                                 <td><?php echo 'Rs '.$key->grand_total; ?></td>
                                                 <td><span class=" badge badge-warning"><?php echo $key->status; ?></span></td>
-                                                <td><input type="button" class="view_data btn btn-info btn-sm" name="view" value="View" id="<?php echo $key->order_id; ?>"></td>
+                                                <td><a class="view_data btn btn-info btn-sm" href="<?php echo base_url('admin/order_item_info/'.$key->order_id);?>">View</a></td>
+                                                <td>
+                                                    <form action="<?php echo base_url('admin/change_statusPacked/');?>" method="post">
+                                                     <input type="hidden" value="<?php echo $key->order_id;?>" name="order_id">
+                                                    <select name="status"  required="" >
+                                                        <option value="" selected="" disabled="">Change</option>
+                                                        <option value="shipped">shipped</option>
+                                                    </select>
+                                                    <button class="btn btn-success btn-sm">Change</button>
+                                                    </form>
+                                                </td>
                                             <?php $i++;endforeach ?>
                                         </tbody>
                                     </table>

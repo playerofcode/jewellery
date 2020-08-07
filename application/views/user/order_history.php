@@ -27,7 +27,7 @@
 							<td><?php echo $key->customer_name; ?></td>
 							<td><?php echo $key->mobno; ?></td>
 							<td><?php echo $key->grand_total; ?></td>
-							<td><?php echo $key->status; ?></td>
+							<td><?php if($key->status == 'new_order'){echo "ordered";}else{echo $key->status;} ?></td>
 							<td><?php echo $key->date; ?></td>
 							<td><a href="<?php echo base_url('user/orderItemInfo/'.$key->order_id);?>" class="btn btn-primary btn-sm">Show</a></td>
 						</tr>

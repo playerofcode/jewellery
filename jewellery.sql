@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2020 at 02:50 PM
+-- Generation Time: Aug 07, 2020 at 02:51 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -71,7 +71,6 @@ CREATE TABLE `collections` (
 --
 
 INSERT INTO `collections` (`p_id`, `cat_id`, `p_name`, `p_qty`, `p_unit`, `p_img1`, `p_img2`, `p_img3`, `p_img4`, `p_description`, `m_price`, `d_price`, `offer`, `availability`, `status`, `date`) VALUES
-(300000, '3', 'Product 111', '1', 'piece', 'upload/product_image/ertiga.jpg', 'upload/product_image/crista2.jpg', 'upload/product_image/baleno1.jpg', 'upload/product_image/bus1.jpg', 'Product Description here gvhjb', '89985', '34444', '62', 'yes', '1', '2020-08-04 11:45:24'),
 (300001, '3', 'Collection Product ', '1', 'piece', 'upload/product_image/birthstone1.jpg', 'upload/product_image/birthstonebraclet1.jpg', 'upload/product_image/charms1.jpg', 'upload/product_image/classic1.jpg', 'product description here', '15154', '5148', '66', 'yes', '1', '2020-08-04 15:59:48');
 
 -- --------------------------------------------------------
@@ -105,6 +104,22 @@ INSERT INTO `collection_category` (`cat_id`, `cat_image`, `cat_name`, `cat_statu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contact`
+--
+
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL,
+  `name` varchar(55) NOT NULL,
+  `email` varchar(110) NOT NULL,
+  `mobno` varchar(55) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customers`
 --
 
@@ -127,7 +142,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `name`, `mobno`, `email`, `password`, `state`, `city`, `zipcode`, `address`, `image`, `distributor`) VALUES
-(12, 'Nishtha Gupta', '7485968574', 'nishtha@gmail.com', 'adminadmin', '', '', '', '', '', '');
+(12, 'Nishtha Gupta', '7485968574', 'nishtha@gmail.com', 'adminadmin', 'Uttar pradesh', 'Lucknow', '524152', 'Indira Nagar, Lucknow', '', ''),
+(13, 'Vivek Gupta', '7485968574', 'vkgupta02255@gmail.com', 'admin', 'Uttar Pradesh', 'Lucknow', '226016', 'Indira Nagar, Sec 11, Lucknow, India', '', '');
 
 -- --------------------------------------------------------
 
@@ -199,6 +215,108 @@ CREATE TABLE `location` (
 
 INSERT INTO `location` (`id`, `city_name`, `pincode`) VALUES
 (4, 'Delhi', '221001');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `customer_id` varchar(55) NOT NULL,
+  `customer_name` varchar(55) NOT NULL,
+  `mobno` varchar(255) NOT NULL,
+  `state` varchar(55) NOT NULL,
+  `city` varchar(55) NOT NULL,
+  `zipcode` varchar(55) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `grand_total` varchar(55) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `distributor` varchar(255) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `customer_id`, `customer_name`, `mobno`, `state`, `city`, `zipcode`, `address`, `grand_total`, `status`, `distributor`, `date`) VALUES
+(1, '12', 'Nishtha Gupta', '7485968574', 'UP', 'LKO', '859685', 'LKO', '27632', 'new_order', '', '2020-08-05 12:30:02'),
+(2, '12', 'Nishtha Gupta', '7485968574', 'UP', 'LUCKNOW', '256341', 'LKO UP  India', '26581', 'new_order', '', '2020-08-05 14:49:50'),
+(4, '5', 'final name', '8596748596', '', '', '', '', '850', 'new_order', '', '2020-08-05 15:17:08'),
+(5, '12', 'Nishtha Gupta', '7485968574', 'xfcg', 'dxfcghvj', 'fxcgvhjb', 'fchgvj', '19577', 'new_order', '', '2020-08-05 15:34:28'),
+(6, '12', 'Nishtha Gupta', '7485968574', 'Uttar pradesh', 'Lucknow', '524152', 'Indira Nagar, Lucknow', '12285', 'packed', '', '2020-08-05 17:18:01'),
+(7, '13', 'Vivek Gupta', '7485968574', 'Uttar Pradesh', 'Lucknow', '226016', 'Indira Nagar, Sec 11, Lucknow, India', '11710', 'shipped', '', '2020-08-07 10:06:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `order_id` varchar(225) NOT NULL,
+  `product_id` varchar(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `quantity` varchar(255) NOT NULL,
+  `sub_total` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `quantity`, `sub_total`) VALUES
+(1, '1', '100004', 'Sweet Pendant', '2', '9044'),
+(2, '1', '100000', 'Earring 1', '1', '5855'),
+(3, '1', '100005', 'Necklace 1', '1', '7585'),
+(4, '1', '300001', 'Collection Product ', '1', '5148'),
+(5, '2', '500000', 'Gift Product ', '1', '4000'),
+(6, '2', '100001', 'Ring 1', '1', '4700'),
+(7, '2', '100005', 'Necklace 1', '1', '7585'),
+(8, '2', '300001', 'Collection Product ', '2', '10296'),
+(9, '4', '100000', 'Earring 1', '1', '5855'),
+(10, '4', '100003', 'Beautiful Chain', '1', '4500'),
+(11, '4', '300001', 'Collection Product ', '1', '5148'),
+(12, '5', '100000', 'Earring 1', '1', '5855'),
+(13, '5', '100001', 'Ring 1', '1', '4700'),
+(14, '5', '100003', 'Beautiful Chain', '1', '4500'),
+(15, '5', '100004', 'Sweet Pendant', '1', '4522'),
+(16, '6', '100005', 'Necklace 1', '1', '7585'),
+(17, '6', '100001', 'Ring 1', '1', '4700'),
+(18, '7', '100000', 'Earring 1', '2', '11710');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL,
+  `customer_id` varchar(55) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `mobno` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_for` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_mode` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `customer_id`, `payment_id`, `order_id`, `payment_status`, `amount`, `name`, `email`, `mobno`, `payment_for`, `payment_mode`) VALUES
+(2, '18488', '48807-70220-27201-87995', '15966192936547', 'Success', '85', 'dxfcgvhbjkl', 'abc@gmail.com', '8596858585', 'dxfcgvhbjk', 'Credit Card'),
+(3, '859647', '49760-07797-22691-18509', '15966204130522', 'Success', '50', 'Vivek ', 'meraemail@gmail.com', '7485968574', 'My Product', 'Credit Card'),
+(4, '859647', '49760-07797-22691-18509', '15966204130522', 'Success', '50', 'Vivek ', 'meraemail@gmail.com', '7485968574', 'My Product', 'Credit Card'),
+(5, '5', '84873-59709-52177-72900', '15966208029854', 'Success', '850', 'final name', 'testemail@gmail.com', '8596748596', 'jewellery', 'Credit Card');
 
 -- --------------------------------------------------------
 
@@ -288,6 +406,12 @@ ALTER TABLE `collection_category`
   ADD PRIMARY KEY (`cat_id`);
 
 --
+-- Indexes for table `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
@@ -309,6 +433,24 @@ ALTER TABLE `gift_category`
 -- Indexes for table `location`
 --
 ALTER TABLE `location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -346,10 +488,16 @@ ALTER TABLE `collection_category`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `gifts`
@@ -370,6 +518,24 @@ ALTER TABLE `location`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -379,7 +545,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_category`
 --
 ALTER TABLE `product_category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

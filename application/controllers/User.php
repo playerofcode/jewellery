@@ -11,6 +11,7 @@ class User extends CI_Controller {
 		$this->load->model('User_model','model');
 		$this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
 		$this->load->library('cart');
+
 	}
 	public function index()
 	{
@@ -270,6 +271,10 @@ class User extends CI_Controller {
 			'name'=>$form['name'],
 			'email'=>$form['email'],
 			'mobno'=>$form['mobno'],
+			'state'=>$form['state'],
+			'city'=>$form['city'],
+			'zipcode'=>$form['zipcode'],
+			'address'=>$form['address'],
 			'password'=>$form['password']
 		);
 		$res=$this->model->addCustomer($data);
@@ -551,7 +556,94 @@ echo $obj->submit();
 			return redirect(base_url().'user/cart');	
 		}
 	}
-
+	public function track_order()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$this->load->view('user/track_order');
+		$this->load->view('user/footer');
+	}
+	public function track_order_status()
+	{
+		$order_id=$this->input->post('order_id');
+		@$res=$this->model->getOrderStatus($order_id);
+		if($res)
+		{
+			if($res=='new_order')
+			{
+				$this->session->set_flashdata('msg','Your Order  has been placed');
+				return redirect(base_url().'user/track_order');
+			}
+			elseif($res=='packed')
+			{
+				$this->session->set_flashdata('msg','Seller has processed your order');
+				return redirect(base_url().'user/track_order');
+			}
+			else
+			{
+				$this->session->set_flashdata('msg','Your item has been shipped');
+				return redirect(base_url().'user/track_order');
+			}
+		}
+		else{
+			$this->session->set_flashdata('msg', "Order id does not exist.");
+			return redirect(base_url().'user/track_order');
+		}
+	}
+	public function contact()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$this->load->view('user/contact');
+		$this->load->view('user/footer');
+	}
+	public function contactInfo()
+	{
+		$name=$this->input->post('name');
+		$email=$this->input->post('email');
+		$mobno=$this->input->post('mobno');
+		$subject=$this->input->post('subject');
+		$message=$this->input->post('message');
+		$data=array(
+			'name'=>$name,
+			'email'=>$email,
+			'mobno'=>$mobno,
+			'subject'=>$subject,
+			'message'=>$message
+		);
+		if($this->model->contactInfo($data))
+		{
+			$this->session->set_flashdata('msg', "Thank You for contact us. We'll response you soon.");
+			return redirect(base_url().'user/contact');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg','Something went wrong. Try again');
+			return redirect(base_url().'user/contact');
+		}
+	}
+	public function faq()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$this->load->view('user/faq',);
+		$this->load->view('user/footer');
+	}
+	public function terms_and_condition()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$this->load->view('user/header',$data);
+		$this->load->view('user/terms_and_condition');
+		$this->load->view('user/footer');	
+	}
 
 
 }

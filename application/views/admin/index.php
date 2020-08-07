@@ -48,8 +48,8 @@
                         <div class="card card-hover">
                             <div class="box bg-cyan text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-desktop-mac"></i></h1>
-                                <h6 class="text-white">Distributor</h6>
-                                 <button class="btn btn-warning"><a href="<?php echo base_url('admin/distributor_list');?>">Click Here <i class="mdi mdi-truck-delivery"></i></a></button>
+                                <h6 class="text-white">Collection</h6>
+                                 <button class="btn btn-warning"><a href="<?php echo base_url('admin/all_collections');?>">Click Here <i class="mdi mdi-truck-delivery"></i></a></button>
                             </div>
                         </div>
                     </div>
@@ -57,8 +57,8 @@
                         <div class="card card-hover">
                             <div class="box bg-success text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-desktop-mac"></i></h1>
-                                <h6 class="text-white">Delivery Partner</h6>
-                                 <button class="btn btn-warning"><a href="<?php echo base_url('admin/delivery_list');?>">Click Here <i class="mdi mdi-truck-delivery"></i></a></button>
+                                <h6 class="text-white">Gifts</h6>
+                                 <button class="btn btn-warning"><a href="<?php echo base_url('admin/all_gifts');?>">Click Here <i class="mdi mdi-truck-delivery"></i></a></button>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                             <div class="box bg-danger text-center">
                                 <h1 class="font-light text-white"><i class="mdi mdi-desktop-mac"></i></h1>
                                 <h6 class="text-white">Enquiry</h6>
-                                 <button class="btn btn-warning"><a href="<?php echo base_url('admin/enquiry');?>">Click Here <i class="mdi mdi-truck-delivery"></i></a></button>
+                                 <button class="btn btn-warning"><a href="<?php echo base_url('admin/contact');?>">Click Here <i class="mdi mdi-truck-delivery"></i></a></button>
                             </div>
                         </div>
                     </div>

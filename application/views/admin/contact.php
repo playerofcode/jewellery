@@ -26,30 +26,28 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Order ID</th>
-                                                <th>Customer ID</th>
-                                                <th>Customer Name</th>
-                                                <th>Mobile No</th>
-                                                 <th>Address</th>
-                                                <th>Grand Total</th>
-                                                <th>Order Status</th>
-                                                <td>Details</td>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Mobile Number</th>
+                                                <th>Subject</th>
+                                                <th>Message</th>
+                                                <th>Date</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php 
                                             $i=1;
-                                            foreach ($order as $key): ?>
+                                            foreach ($contact as $key): ?>
                                               <tr>
                                                 <td><?php echo $i; ?></td>
-                                                <td><?php echo $key->order_id; ?></td>
-                                                <td><?php echo $key->customer_id; ?></td>
-                                                <td><?php echo $key->customer_name; ?></td>
+                                                <td><?php echo $key->name; ?></td>
+                                                <td><?php echo $key->email; ?></td>
                                                 <td><?php echo $key->mobno; ?></td>
-                                                <td><?php echo $key->address; ?></td>
-                                                <td><?php echo 'Rs '.$key->grand_total; ?></td>
-                                                <td><span class=" badge badge-success"><?php echo $key->status; ?></span></td>
-                                                <td><a class="view_data btn btn-info btn-sm" href="<?php echo base_url('admin/order_item_info/'.$key->order_id);?>">View</a></td>
+                                                <td><?php echo $key->subject; ?></td>
+                                                <td><?php echo $key->message; ?></td>
+                                                <td><?php echo $key->date; ?></td>
+                                                <td><a onclick="return confirm('Are you sure want to delete?');"href="<?php echo base_url('admin/deleteContact/'.$key->id);?>" class="btn btn-warning btn-sm">Delete </a></td>
                                             <?php $i++;endforeach ?>
                                         </tbody>
                                     </table>

@@ -181,16 +181,49 @@ class Admin_model extends CI_model
 		$this->db->order_by('order_id','DESC');
 		return $this->db->get_where('orders',array('status'=>'new_order'))->result();
 	}
+	public function getConfirmOrder()
+	{
+		$this->db->order_by('order_id','DESC');
+		return $this->db->get_where('orders',array('status'=>'packed'))->result();
+	}
+	public function getCompleteOrder()
+	{
+		$this->db->order_by('order_id','DESC');
+		return $this->db->get_where('orders',array('status'=>'shipped'))->result();
+	}
+	public function CustomerInfoByOrderId($order_id)
+	{
+		return $this->db->get_where('orders',array('order_id'=>$order_id))->result();
+	}
 	public function orderItem($order_id)
 	{
 		$result=$this->db->get_where('order_items',array('order_id'=>$order_id))->result();
+		$cus_info=$this->CustomerInfoByOrderId($order_id);
+		$customer_name=$cus_info[0]->customer_name;
+		$date=$cus_info[0]->date;
+		$address=$cus_info[0]->address;
+		$grand_total=$cus_info[0]->grand_total;
 		$output ='<table border="1" cellpadding="5" cellspacing="0" width="100%">';
+		 $output.='<tr>
+		              <td>Customer Name</td>
+					  <td>'.$customer_name.'</td>
+		              <td>Order Id</td>
+		              <td>'.$order_id.'</td>
+	             </tr>';
+          $output.='<tr>
+              <td>Address</td>
+			  <td>'.$address.'</td>
+              <td>Date</td>
+              <td>'.$date.'</td>
+         </tr>';
+         $output.='<tr><td colspan="4"><center>Product Description(s)</center></td></tr>';
   		$output.='<tr>
 		              <td>Product ID</td>
 					  <td>Product Name</td>
 		              <td>Quantity</td>
 		              <td>Sub Total</td>
-	             </tr>';	
+	             </tr>';
+	   	
 	    	
 	    foreach ($result as $key) {
 	    $output.='<tr><td>'.$key->product_id.'</td>';
@@ -198,8 +231,23 @@ class Admin_model extends CI_model
 	    $output.='<td>'.$key->quantity.'</td>';
 	    $output.='<td>'.$key->sub_total.'</td></tr>';
 	    }
+	    $output.='<tr><td colspan="3"><center>Grand Total</center></td><td>'.$grand_total.'</td></tr>';
 	    $output.='</table>';
 	    return $output;
+	}
+	public function updateOrderStatus($order_id,$status)
+	{
+		$this->db->where('order_id',$order_id);
+		return $this->db->update('orders',array('status'=>$status));
+	}
+	public function getContactInfo()
+	{
+		$this->db->order_by('id','DESC');
+		return $this->db->get('contact')->result();
+	}
+	public function deleteContact($id)
+	{
+		return $this->db->delete('contact',array('id'=>$id));
 	}
 }
 ?>

@@ -125,5 +125,13 @@ class User_model extends CI_model
 	{
 		return $this->db->get_where('location',array('pincode'=>$pincode))->result();
 	}
+	public function getOrderStatus($order_id)
+	{
+		return $this->db->get_where('orders',array('order_id'=>$order_id))->row()->status;
+	}
+	public function contactInfo($data)
+	{
+		return $this->db->insert('contact',$data);
+	}
 }
 ?>

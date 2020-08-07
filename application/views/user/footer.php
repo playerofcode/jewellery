@@ -4,15 +4,15 @@
         <div class="row">
           <div class="col-md-4">
             <a href="" class="nav-link nav-white">Customer Service</a>
-            <a href="" class="nav-link nav-white">HELP & CONTACT</a>
-            <a href="" class="nav-link nav-white">DELIVERY INFORMATION</a>
+            <a href="<?php echo base_url('user/contact');?>" class="nav-link nav-white">HELP & CONTACT</a>
+            <a href="<?php echo base_url('user/faq');?>" class="nav-link nav-white">DELIVERY INFORMATION</a>
             <a href="" class="nav-link nav-white">INTERNATIONAL SHIPPING</a>
             <a href="" class="nav-link nav-white">RETURNS</a>
             <a href="" class="nav-link nav-white">PAYMENT OPTIONS</a>
-            <a href="" class="nav-link nav-white">TRACK ORDER</a>
+            <a href="<?php echo base_url('user/track_order');?>" class="nav-link nav-white">TRACK ORDER</a>
             <a href="" class="nav-link nav-white">FIND A STORE</a>
             <a href="" class="nav-link nav-white">ENCIRCLE PROGRAM</a>
-            <a href="" class="nav-link nav-white">ABOUT US</a>
+            <a href="<?php echo base_url('user/about');?>" class="nav-link nav-white">ABOUT US</a>
           </div>
           <div class="col-md-4 text-center text-white">
             <img src="<?php echo base_url();?>/assets/img/logo1.svg" alt="" class="img-fluid" style="height: 100px;">
@@ -34,7 +34,7 @@
           <div class="col-md-4 text-white">
             <p>Want Help? Click Here to chat with us on <i class="fa fa-whatsapp"></i></p>
             <p >Operating Hours: 10:00AM to 10:00PM Monday to Sunday</p>
-            <a href="" class="nav-link nav-white">TERMS & CONDITIONS</a>
+            <a href="<?php echo base_url('user/terms_and_condition'); ?>" class="nav-link nav-white">TERMS & CONDITIONS</a>
             <a href="" class="nav-link nav-white">PRIVACY POLICY</a>
             <a href="" class="nav-link nav-white">&copy; 2020 CONFOUNDING SOLUTIONS. All rights reserved.</a>
           </div>
@@ -99,6 +99,22 @@
               <label>Mobile Number</label>
               <input type="text" name="mobno" id="mobno" class="form-control" placeholder="Enter Mobile Number" required="">
             </div>
+             <div class="form-group">
+              <label>State</label>
+              <input type="text" name="state" id="state" class="form-control" placeholder="Enter State" required="">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" name="city" id="city" class="form-control" placeholder="Enter City" required="">
+            </div>
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Enter Pincode" required="">
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <input type="text" name="address" id="address" class="form-control" placeholder="Enter Full Address" required="">
+            </div>
             <div class="form-group">
               <label>Password</label>
               <input type="password" name="password" id="password" class="form-control" placeholder="Create Password" required="">
@@ -161,7 +177,6 @@
 });//ajax close
           $('.locationFinder').click(function(e){
             e.preventDefault();
-            alert('Hello');
               var pincode=$('#pincode').val();
               $.ajax({
                 url:"<?php echo base_url('user/locationFinder/');?>",
@@ -189,10 +204,14 @@
         var email=$("#email").val();
         var mobno=$("#mobno").val();
         var password=$("#password").val();
+        var state=$("#state").val();
+        var city=$("#city").val();
+        var zipcode=$("#zipcode").val();
+        var address=$("#address").val();
          $.ajax({
          url:"<?php echo base_url('user/register/');?>",
          method:"POST",
-         data:{name:name,email:email,mobno:mobno,password:password},
+         data:{name:name,email:email,mobno:mobno,password:password,state:state,city:city,zipcode:zipcode,address:address},
          success:function(data)
          {
             if(data =='ok')

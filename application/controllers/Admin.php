@@ -1220,9 +1220,85 @@ class Admin extends CI_Controller {
 		else
 		{
 		$this->session->set_flashdata('msg', "Unable to find Order");
-			return redirect(base_url().'admin/order');	
+			return redirect(base_url().'admin/new_order');	
+		}
+	}
+	public function change_status()
+	{
+		$order_id=$this->input->post('order_id');
+		$status=$this->input->post('status');
+			if($this->model->updateOrderStatus($order_id,$status))
+			{
+			$this->session->set_flashdata('msg', "Order Status change successfuly");
+			return redirect(base_url().'admin/new_order');	
+			}
+			else
+			{
+			$this->session->set_flashdata('msg', "Unable to update Order Status");
+			return redirect(base_url().'admin/new_order');	
+			}
+	}
+	public function change_statusPacked()
+	{
+		$order_id=$this->input->post('order_id');
+		$status=$this->input->post('status');
+			if($this->model->updateOrderStatus($order_id,$status))
+			{
+			$this->session->set_flashdata('msg', "Order Status change successfuly");
+			return redirect(base_url().'admin/confirm_order');	
+			}
+			else
+			{
+			$this->session->set_flashdata('msg', "Unable to update Order Status");
+			return redirect(base_url().'admin/confirm_order');	
+			}
+	}
+	public function confirm_order()
+	{
+		$data['order']=$this->model->getConfirmOrder();	
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/confirm_order',$data);
+		$this->load->view('admin/footer');
+	}
+	public function complete_order()
+	{
+		$data['order']=$this->model->getCompleteOrder();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/complete_order',$data);
+		$this->load->view('admin/footer');
+	}
+	public function contact()
+	{
+		$data['contact']=$this->model->getContactInfo();
+		$this->load->view('admin/header');
+		$this->load->view('admin/sidebar');
+		$this->load->view('admin/contact',$data);
+		$this->load->view('admin/footer');
+	}
+	public function deleteContact()
+	{
+		$id=$this->uri->segment(3);
+		if($this->model->deleteContact($id))
+		{
+			$this->session->set_flashdata('msg','Contact deleted successfully');
+			return redirect(base_url().'admin/contact');
+		}
+		else
+		{
+			$this->session->set_flashdata('msg','Something went wrong.');
+			return redirect(base_url().'admin/contact');
 		}
 	}
 
-
 }
+
+
+
+
+
+
+
+
+
