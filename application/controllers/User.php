@@ -18,6 +18,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$data['product_info']=$this->model->get_allProduct();
 		$this->load->view('user/index',$data);
@@ -28,6 +30,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$cat_id=$this->uri->segment(3);
 		if(!empty($cat_id))
@@ -42,6 +46,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['silver']=$this->model->silver();
+		$data['coins']=$this->model->getCoin();
 		$this->load->view('user/header',$data);
 		$cat_id=$this->uri->segment(3);
 		if(!empty($cat_id))
@@ -51,11 +57,29 @@ class User extends CI_Controller {
 		}
 		$this->load->view('user/footer');
 	}
+	public function silver()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
+		$this->load->view('user/header',$data);
+		$cat_id=$this->uri->segment(3);
+		if(!empty($cat_id))
+		{
+		$data['product_info']=$this->model->get_productBySilver($cat_id);
+		$this->load->view('user/silver',$data);
+		}
+		$this->load->view('user/footer');
+	}
 	public function cart()
 	{
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();	
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/cart');
 		$this->load->view('user/footer');
@@ -65,6 +89,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$p_id=$this->uri->segment(3);
 		if(!empty($p_id))
@@ -79,6 +105,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$cat_id=$this->uri->segment(3);
 		if(!empty($cat_id))
@@ -93,6 +121,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$p_id=$this->uri->segment(3);
 		if(!empty($p_id))
@@ -102,11 +132,29 @@ class User extends CI_Controller {
 		}
 		$this->load->view('user/footer');
 	}
+	public function single_silver()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
+		$this->load->view('user/header',$data);
+		$p_id=$this->uri->segment(3);
+		if(!empty($p_id))
+		{
+			$data['product_info']=$this->model->getSilverProductById($p_id);
+			$this->load->view('user/single_silver',$data);
+		}
+		$this->load->view('user/footer');
+	}
 	public function single_gift()
 	{
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$p_id=$this->uri->segment(3);
 		if(!empty($p_id))
@@ -121,6 +169,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/series');
 		$this->load->view('user/footer');
@@ -130,6 +180,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/style');
 		$this->load->view('user/footer');
@@ -139,6 +191,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/video');
 		$this->load->view('user/footer');
@@ -148,6 +202,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/blog');
 		$this->load->view('user/footer');
@@ -157,6 +213,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/about');
 		$this->load->view('user/footer');
@@ -166,6 +224,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/gifting');
 		$this->load->view('user/footer');
@@ -175,6 +235,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/gift_occasions');
 		$this->load->view('user/footer');
@@ -233,6 +295,36 @@ class User extends CI_Controller {
 	echo $insert?'ok':'err';
 	}
 	}
+	public function add_to_cart_coin()
+	{
+		$product=$this->model->getCoinByID($this->input->post('pid'));
+	$data = array(
+    'id'      => $product[0]->p_id,
+    'qty'     => 1,
+    'myqty'     => $product[0]->p_qty,
+    'p_unit'     => $product[0]->p_unit,
+    'price'   => $product[0]->d_price,
+    'name'    => $product[0]->p_name,
+    'image'    => $product[0]->p_img1,
+	);
+	$insert=$this->cart->insert($data);
+	echo $insert?'ok':'err';
+	}	
+	public function add_to_cart_silver()
+	{
+	$product=$this->model->getSilverProductById($this->input->post('pid'));
+	$data = array(
+    'id'      => $product[0]->p_id,
+    'qty'     => 1,
+    'myqty'     => $product[0]->p_qty,
+    'p_unit'     => $product[0]->p_unit,
+    'price'   => $product[0]->d_price,
+    'name'    => $product[0]->p_name,
+    'image'    => $product[0]->p_img1
+	);
+	$insert=$this->cart->insert($data);
+	echo $insert?'ok':'err';
+	}	
 	public function updateItemQty()
 	{
 		$rowid=$this->input->get('rowid');
@@ -262,6 +354,21 @@ class User extends CI_Controller {
 		{
 			$res=$this->model->locationFinder($pincode);
 			echo $res?'ok':'err';
+		}
+	}
+	public function check_location()
+	{
+		$pincode=$this->input->post('pincode');
+		$res=$this->model->getLocation($pincode);
+		if($res)
+		{
+		$this->session->set_flashdata('msg', "Jewellery Website available in your location");
+		redirect(base_url().'user/cart');
+		}
+		else
+		{
+		$this->session->set_flashdata('msg', "Jewellery Website not available in your location");
+		redirect(base_url().'user/cart');
 		}
 	}
 	public function register()
@@ -319,6 +426,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$data['customer_info']=$this->model->getProfile($email);
 		$this->load->view('user/header',$data);
 		$this->load->view('user/checkout',$data);
@@ -390,6 +499,8 @@ class User extends CI_Controller {
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/success');
 		$this->load->view('user/footer');
@@ -534,6 +645,8 @@ echo $obj->submit();
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/order_history',$data);
 		$this->load->view('user/footer');
@@ -561,6 +674,8 @@ echo $obj->submit();
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/track_order');
 		$this->load->view('user/footer');
@@ -597,6 +712,8 @@ echo $obj->submit();
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/contact');
 		$this->load->view('user/footer');
@@ -631,6 +748,8 @@ echo $obj->submit();
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/faq',);
 		$this->load->view('user/footer');
@@ -640,11 +759,40 @@ echo $obj->submit();
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
 		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
 		$this->load->view('user/terms_and_condition');
 		$this->load->view('user/footer');	
 	}
-
+	public function coins($p_id)
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
+		$data['coin']=$this->model->getCoinByID($p_id);
+		$this->load->view('user/header',$data);
+		$this->load->view('user/coins',$data);
+		$this->load->view('user/footer');
+	}
+	public function single_coin()
+	{
+		$data['category']=$this->model->category();
+		$data['collection']=$this->model->collection();
+		$data['gift']=$this->model->gift();
+		$data['coins']=$this->model->getCoin();
+		$data['silver']=$this->model->silver();
+		$this->load->view('user/header',$data);
+		$p_id=$this->uri->segment(3);
+		if(!empty($p_id))
+		{
+		$data['product_info']=$this->model->getCoinByID($p_id);
+		$this->load->view('user/single_coin',$data);
+		}
+		$this->load->view('user/footer');
+	}
 
 }
 

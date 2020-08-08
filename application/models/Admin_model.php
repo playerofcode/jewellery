@@ -249,6 +249,72 @@ class Admin_model extends CI_model
 	{
 		return $this->db->delete('contact',array('id'=>$id));
 	}
+	public function add_coins($data)
+	{
+		return $this->db->insert('coins',$data);
+	}
+	public function get_coins($p_id='')
+	{
+		if($p_id)
+		{
+			return $this->db->get_where('coins',array('p_id'=>$p_id))->result();
+		}
+		else
+		{
+			$this->db->order_by('p_id','DESC');
+			return $this->db->get('coins')->result();
+		}
+	}
+	public function delete_coins($p_id)
+	{
+		return $this->db->delete('coins',array('p_id'=>$p_id));
+	}
+	public function update_coins($data,$p_id)
+	{
+		$this->db->where('p_id',$p_id);
+		return $this->db->update('coins',$data);
+	}
+	public function add_silver($data)
+	{
+		return $this->db->insert('silver_category',$data);
+	}
+	public function get_silver($cat_id='')
+	{
+	if($cat_id)
+		{
+			return $this->db->get_where('silver_category',array('cat_id'=>$cat_id))->result();
+		}
+		else
+		{
+			$this->db->order_by('cat_id','DESC');
+			return $this->db->get('silver_category')->result();
+		}
+	}
+	public function add_silvers($data)
+	{
+	return $this->db->insert('silvers',$data);	
+	}
+	public function get_silvers($p_id='')
+	{
+		if($p_id)
+		{
+		return $this->db->get_where('silvers',array('p_id'=>$p_id))->result();
+		}
+		else
+		{
+		$this->db->order_by('p_id','DESC');
+		return $this->db->get('silvers')->result();
+		}
+	}
+	public function delete_silvers($p_id)
+	{
+		return $this->db->delete('silvers',array('p_id'=>$p_id));
+	}
+	public function update_silvers($data,$p_id)
+	{
+	$this->db->where('p_id',$p_id);
+	return $this->db->update('silvers',$data);	
+	}
 }
 ?>
 

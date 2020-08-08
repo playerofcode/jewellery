@@ -51,9 +51,13 @@
                               </div>
                            </div>  
                            </div>
+                           <div class="form-group">
+                           	<label>Payment Mode</label>
+                           	<input type="radio" checked=""> Cash on Delivery
+                           </div>
                            <input type="hidden" name="grand_total" value="<?php echo $this->cart->total(); ?>">
                            <div class="form-group">
-                           	<input type="submit" class="btn btn-success" value="Proceed to Payment">
+                           	<input type="submit" class="btn btn-success" value="Place Order">
                            </div>
 					</form>
 				</div>

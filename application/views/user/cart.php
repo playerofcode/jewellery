@@ -54,12 +54,12 @@
 								<option value="">Other</option>
 							</select>
 						</td>
-						<td>
-							<form  method="post">   
+						<td>   
+							<form action="<?php echo base_url('user/check_location');?>" method="POST">
 							<div class="input-group mb-3">
-  								<input type="text" id="pincode"  class="form-control"  placeholder="Pin Code" style="border-radius: 50px 0 0 50px;">
+  								<input type="text" name="pincode" id="pincode"  class="form-control"  placeholder="Pin Code" style="border-radius: 50px 0 0 50px;">
   							<div class="input-group-append">
-    						<button class="locationFinder btn btn-danger" type="submit" style="border-radius:0 50px 50px 0;">CHECK</button>
+    						<button class="btn btn-danger" type="submit" style="border-radius:0 50px 50px 0;">CHECK</button>
   							</div>
 							</div>
 							</form>

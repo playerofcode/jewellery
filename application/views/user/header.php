@@ -184,19 +184,28 @@ position: relative;
           <?php } ?>
       </div>
     </li>
-     <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('user/products');?>">Silver</a>
-      </li>
+      <li class="nav-item dropdown">
+      <a class="nav-link" href="#" id="navbardrop" data-toggle="dropdown">
+        Silver
+      </a>
+      <div class="dropdown-menu">
+        <?php 
+          foreach ($silver as $key): 
+        ?>
+        <a class="dropdown-item" href="<?php echo base_url('user/silver/'.$key->cat_id);?>"><?php echo $key->cat_name; ?></a>
+      <?php endforeach; ?>
+      </div>
+    </li>
       <li class="nav-item dropdown">
       <a class="nav-link" href="#" id="navbardrop" data-toggle="dropdown">
         Coins
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="<?php echo base_url('user/single');?>">1 gram</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/single');?>">2 grams</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/single');?>">4 grams</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/single');?>">5 grams</a>
-        <a class="dropdown-item" href="<?php echo base_url('user/single');?>">10grams</a>
+        <?php 
+          foreach ($coins as $key): 
+        ?>
+        <a class="dropdown-item" href="<?php echo base_url('user/coins/'.$key->p_id);?>"><?php echo $key->p_name; ?></a>
+      <?php endforeach; ?>
       </div>
     </li>
     <li class="nav-item dropdown">

@@ -268,7 +268,7 @@
             items:1
         },
         600:{
-            items:3
+            items:2
         },
         1000:{
             items:5
@@ -384,7 +384,54 @@
                         }
                      }
                   });
-               });
+                  });
+                  $('.addToCartCoin').on('click',function(e){
+                  e.preventDefault();
+                  var $form=$(this).closest(".form-submit");
+                  var pid=$form.find(".pid").val();
+                  $.ajax({
+                     url:"<?php echo base_url('user/add_to_cart_coin/');?>",
+                     method:"POST",
+                     data:{pid:pid},
+                     success:function(data)
+                     {
+                        if(data =='ok')
+                        {
+                        swal("Success!", "Your item added into the Cart!", "success").then(function(){ 
+                        location.reload();
+                        });
+                        }
+                        else
+                        {
+                        swal("Opps!", "Cart update failed, please try again", "error");
+                        }
+                     }
+                  });
+                  });
+                  $('.addToCartSilver').on('click',function(e){
+                  e.preventDefault();
+                  var $form=$(this).closest(".form-submit");
+                  var pid=$form.find(".pid").val();
+                  $.ajax({
+                     url:"<?php echo base_url('user/add_to_cart_silver/');?>",
+                     method:"POST",
+                     data:{pid:pid},
+                     success:function(data)
+                     {
+                        if(data =='ok')
+                        {
+                        swal("Success!", "Your item added into the Cart!", "success").then(function(){ 
+                        location.reload();
+                        });
+                        }
+                        else
+                        {
+                        swal("Opps!", "Cart update failed, please try again", "error");
+                        }
+                     }
+                  });
+                  });
+               
       });
     </script>
   <script>

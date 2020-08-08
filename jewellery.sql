@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2020 at 02:51 PM
+-- Generation Time: Aug 08, 2020 at 02:51 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -40,6 +40,39 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `email`, `password`) VALUES
 (1, 'admin', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coins`
+--
+
+CREATE TABLE `coins` (
+  `p_id` int(11) NOT NULL,
+  `cat_id` varchar(55) NOT NULL,
+  `p_name` varchar(255) NOT NULL,
+  `p_qty` varchar(11) NOT NULL,
+  `p_unit` varchar(55) NOT NULL,
+  `p_img1` varchar(255) NOT NULL,
+  `p_img2` varchar(255) NOT NULL,
+  `p_img3` varchar(255) NOT NULL,
+  `p_img4` varchar(255) NOT NULL,
+  `p_description` text NOT NULL,
+  `m_price` varchar(55) NOT NULL,
+  `d_price` varchar(55) NOT NULL,
+  `offer` varchar(55) NOT NULL,
+  `availability` varchar(11) NOT NULL,
+  `status` varchar(55) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `coins`
+--
+
+INSERT INTO `coins` (`p_id`, `cat_id`, `p_name`, `p_qty`, `p_unit`, `p_img1`, `p_img2`, `p_img3`, `p_img4`, `p_description`, `m_price`, `d_price`, `offer`, `availability`, `status`, `date`) VALUES
+(3, 'cat id', '1 gram gold', '1', 'gm', 'upload/product_image/att.jpg', 'upload/product_image/bracelet21.jpg', 'upload/product_image/bracelet32.jpg', 'upload/product_image/bracelet41.jpg', 'product desciption', '8888', '7777', '13', 'yes', '1', '2020-08-08 11:37:28'),
+(4, '', '2 Gram Gold', '2', 'gm', 'upload/product_image/bracelet11.jpg', 'upload/product_image/bracelet22.jpg', 'upload/product_image/bracelet33.jpg', 'upload/product_image/bracelet42.jpg', 'product description', '333', '111', '67', 'yes', '1', '2020-08-08 12:30:19');
 
 -- --------------------------------------------------------
 
@@ -214,7 +247,8 @@ CREATE TABLE `location` (
 --
 
 INSERT INTO `location` (`id`, `city_name`, `pincode`) VALUES
-(4, 'Delhi', '221001');
+(4, 'Delhi', '221001'),
+(5, 'Lucknow', '226016');
 
 -- --------------------------------------------------------
 
@@ -244,10 +278,13 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`order_id`, `customer_id`, `customer_name`, `mobno`, `state`, `city`, `zipcode`, `address`, `grand_total`, `status`, `distributor`, `date`) VALUES
 (1, '12', 'Nishtha Gupta', '7485968574', 'UP', 'LKO', '859685', 'LKO', '27632', 'new_order', '', '2020-08-05 12:30:02'),
 (2, '12', 'Nishtha Gupta', '7485968574', 'UP', 'LUCKNOW', '256341', 'LKO UP  India', '26581', 'new_order', '', '2020-08-05 14:49:50'),
-(4, '5', 'final name', '8596748596', '', '', '', '', '850', 'new_order', '', '2020-08-05 15:17:08'),
-(5, '12', 'Nishtha Gupta', '7485968574', 'xfcg', 'dxfcghvj', 'fxcgvhjb', 'fchgvj', '19577', 'new_order', '', '2020-08-05 15:34:28'),
-(6, '12', 'Nishtha Gupta', '7485968574', 'Uttar pradesh', 'Lucknow', '524152', 'Indira Nagar, Lucknow', '12285', 'packed', '', '2020-08-05 17:18:01'),
-(7, '13', 'Vivek Gupta', '7485968574', 'Uttar Pradesh', 'Lucknow', '226016', 'Indira Nagar, Sec 11, Lucknow, India', '11710', 'shipped', '', '2020-08-07 10:06:23');
+(4, '5', 'final name', '8596748596', '', '', '', '', '850', 'shipped', '', '2020-08-05 15:17:08'),
+(5, '12', 'Nishtha Gupta', '7485968574', 'xfcg', 'dxfcghvj', 'fxcgvhjb', 'fchgvj', '19577', 'shipped', '', '2020-08-05 15:34:28'),
+(6, '12', 'Nishtha Gupta', '7485968574', 'Uttar pradesh', 'Lucknow', '524152', 'Indira Nagar, Lucknow', '12285', 'shipped', '', '2020-08-05 17:18:01'),
+(7, '13', 'Vivek Gupta', '7485968574', 'Uttar Pradesh', 'Lucknow', '226016', 'Indira Nagar, Sec 11, Lucknow, India', '11710', 'shipped', '', '2020-08-07 10:06:23'),
+(8, '12', 'Nishtha Gupta', '7485968574', 'Uttar pradesh', 'Lucknow', '524152', 'Indira Nagar, Lucknow', '7777', 'shipped', '', '2020-08-08 13:02:11'),
+(9, '12', 'Nishtha Gupta', '7485968574', 'Uttar pradesh', 'Lucknow', '524152', 'Indira Nagar, Lucknow', '12107', 'shipped', '', '2020-08-08 17:14:39'),
+(10, '13', 'Vivek Gupta', '7485968574', 'Uttar Pradesh', 'Lucknow', '226016', 'Indira Nagar, Sec 11, Lucknow, India', '74005', 'shipped', '', '2020-08-08 17:24:16');
 
 -- --------------------------------------------------------
 
@@ -286,7 +323,11 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `quan
 (15, '5', '100004', 'Sweet Pendant', '1', '4522'),
 (16, '6', '100005', 'Necklace 1', '1', '7585'),
 (17, '6', '100001', 'Ring 1', '1', '4700'),
-(18, '7', '100000', 'Earring 1', '2', '11710');
+(18, '7', '100000', 'Earring 1', '2', '11710'),
+(19, '8', '3', 'Product Name here', '1', '7777'),
+(20, '9', '100004', 'Sweet Pendant', '1', '4522'),
+(21, '9', '100005', 'Necklace 1', '1', '7585'),
+(22, '10', '2', 'Silver Product 1', '1', '74005');
 
 -- --------------------------------------------------------
 
@@ -383,6 +424,58 @@ INSERT INTO `product_category` (`cat_id`, `cat_image`, `cat_name`, `cat_status`)
 (14, 'upload/product_image/maggi31.jpg', 'bangles', 'active'),
 (15, 'upload/product_image/maggi21.jpg', 'nosepins', 'active');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `silvers`
+--
+
+CREATE TABLE `silvers` (
+  `p_id` int(11) NOT NULL,
+  `cat_id` varchar(55) NOT NULL,
+  `p_name` varchar(255) NOT NULL,
+  `p_qty` varchar(11) NOT NULL,
+  `p_unit` varchar(55) NOT NULL,
+  `p_img1` varchar(255) NOT NULL,
+  `p_img2` varchar(255) NOT NULL,
+  `p_img3` varchar(255) NOT NULL,
+  `p_img4` varchar(255) NOT NULL,
+  `p_description` text NOT NULL,
+  `m_price` varchar(55) NOT NULL,
+  `d_price` varchar(55) NOT NULL,
+  `offer` varchar(55) NOT NULL,
+  `availability` varchar(11) NOT NULL,
+  `status` varchar(55) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `silvers`
+--
+
+INSERT INTO `silvers` (`p_id`, `cat_id`, `p_name`, `p_qty`, `p_unit`, `p_img1`, `p_img2`, `p_img3`, `p_img4`, `p_description`, `m_price`, `d_price`, `offer`, `availability`, `status`, `date`) VALUES
+(2, '3', 'Silver Product 1', '1', 'gm', 'upload/product_image/birthstone3.jpg', 'upload/product_image/bracelet34.jpg', 'upload/product_image/bracelet12.jpg', 'upload/product_image/bracelet23.jpg', 'product description here 1', '85225', '74005', '13', 'yes', '1', '2020-08-08 15:14:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `silver_category`
+--
+
+CREATE TABLE `silver_category` (
+  `cat_id` int(11) NOT NULL,
+  `cat_image` varchar(255) NOT NULL,
+  `cat_name` varchar(255) NOT NULL,
+  `cat_status` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `silver_category`
+--
+
+INSERT INTO `silver_category` (`cat_id`, `cat_image`, `cat_name`, `cat_status`) VALUES
+(3, 'upload/product_image/bed.png', 'sassy silver', 'active');
+
 --
 -- Indexes for dumped tables
 --
@@ -392,6 +485,12 @@ INSERT INTO `product_category` (`cat_id`, `cat_image`, `cat_name`, `cat_status`)
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coins`
+--
+ALTER TABLE `coins`
+  ADD PRIMARY KEY (`p_id`);
 
 --
 -- Indexes for table `collections`
@@ -466,6 +565,18 @@ ALTER TABLE `product_category`
   ADD PRIMARY KEY (`cat_id`);
 
 --
+-- Indexes for table `silvers`
+--
+ALTER TABLE `silvers`
+  ADD PRIMARY KEY (`p_id`);
+
+--
+-- Indexes for table `silver_category`
+--
+ALTER TABLE `silver_category`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -474,6 +585,12 @@ ALTER TABLE `product_category`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `coins`
+--
+ALTER TABLE `coins`
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `collections`
@@ -491,7 +608,7 @@ ALTER TABLE `collection_category`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -515,19 +632,19 @@ ALTER TABLE `gift_category`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -546,6 +663,18 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_category`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `silvers`
+--
+ALTER TABLE `silvers`
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `silver_category`
+--
+ALTER TABLE `silver_category`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

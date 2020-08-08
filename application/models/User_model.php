@@ -14,6 +14,10 @@ class User_model extends CI_model
 	{
 		return $this->db->get_where('gift_category',array('cat_status'=>'active'))->result();
 	}
+	public function silver()
+	{
+		return $this->db->get_where('silver_category',array('cat_status'=>'active'))->result();
+	}
 	public function get_productByCategory($cat_id)
 	{
 	return $this->db->get_where('products',array('cat_id'=>$cat_id))->result();
@@ -21,6 +25,10 @@ class User_model extends CI_model
 	public function get_productByCollection($cat_id)
 	{
 		return $this->db->get_where('collections',array('cat_id'=>$cat_id))->result();
+	}
+	public function get_productBySilver($cat_id)
+	{
+		return $this->db->get_where('silvers',array('cat_id'=>$cat_id))->result();
 	}
 	public function get_productByGift($cat_id)
 	{
@@ -37,6 +45,10 @@ class User_model extends CI_model
 	public function get_GiftProductByID($p_id)
 	{
 	return $this->db->get_where('gifts',array('p_id'=>$p_id))->result();
+	}
+	public function getSilverProductById($p_id)
+	{
+		return $this->db->get_where('silvers',array('p_id'=>$p_id))->result();
 	}
 	public function get_allProduct()
 	{
@@ -125,6 +137,10 @@ class User_model extends CI_model
 	{
 		return $this->db->get_where('location',array('pincode'=>$pincode))->result();
 	}
+	public function getLocation($pincode)
+	{
+		return $this->db->get_where('location',array('pincode'=>$pincode))->result();
+	}
 	public function getOrderStatus($order_id)
 	{
 		return $this->db->get_where('orders',array('order_id'=>$order_id))->row()->status;
@@ -132,6 +148,14 @@ class User_model extends CI_model
 	public function contactInfo($data)
 	{
 		return $this->db->insert('contact',$data);
+	}
+	public function getCoin()
+	{
+		return $this->db->get('coins')->result();
+	}
+	public function getCoinByID($p_id)
+	{
+		return $this->db->get_where('coins',array('p_id'=>$p_id))->result();
 	}
 }
 ?>
