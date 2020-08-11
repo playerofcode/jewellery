@@ -17,14 +17,13 @@
     <div class="card-header bg-info" id="headingOne">
       <h5 class="mb-0">
         <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-         How can i know the status of my order?
+         How do I cancel my order?
         </a>
       </h5>
     </div>
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-        All users have the option to track their orders by clicking on Track Order. The user has to enter the email address used while placing the order and the order number to track the order.
-        Registered users can Signin and track their orders from track order section .
+        Orders can be easily canceled before they are shipped. The cancellation option is available on our website.
       </div>
     </div>
   </div>
@@ -32,13 +31,13 @@
     <div class="card-header bg-info" id="headingTwo">
       <h5 class="mb-0">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-         Where do you deliver within India?
+         Can I replace the order?
         </a>
       </h5>
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
       <div class="card-body">
-        Currently we deliver to selected cities within India. Please check if we deliver to your pincode/city by entering your it in the product page/shopping/cartcheckout page. If there is no courier service available in your area/city, we apologize for the inconvenience caused.
+       Yes you can replace your order. Refer to our return policy.
       </div>
     </div>
   </div>
@@ -46,13 +45,13 @@
     <div class="card-header bg-info" id="headingThree">
       <h5 class="mb-0">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-         I live outside India. can I order for something to be delivered in India?
+         What if I receive the wrong order?
         </a>
       </h5>
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
       <div class="card-body">
-        Yes, you can order for something to be delivered in India as long as you provide a valid shipping address within India. Also, kindly note that we deliver only to selected cities within India. To check whether we deliver to your desired area/city kindly enter your pincode in the product page/shopping cart page/checkout page.
+       You can replace the wrong product but make sure it is not used. You can call or email for registering the complaint.
       </div>
     </div>
   </div>
@@ -60,13 +59,13 @@
     <div class="card-header bg-info" id="headingFour">
       <h5 class="mb-0">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-        how soon will I receive my order?
+       What if I receive a damaged product?
         </a>
       </h5>
     </div>
     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
       <div class="card-body">
-        The time taken for delivery tends to vary according to the destination; however, we make our best efforts to ensure that the domestic order is delivered within 5-7 working days of you placing the order. For international orders please see the Time to Deliver section under Shipping Policy section.
+        If you receive a damaged product, you can return it. Make sure the product is returned in the same condition, with original packing, and an invoice for a refund.
       </div>
     </div>
   </div>
@@ -74,13 +73,13 @@
     <div class="card-header bg-info" id="headingFive">
       <h5 class="mb-0">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-        Can I have multiple accounts linked to the same email ID?
+        Do I have to pay for the return shipment?
         </a>
       </h5>
     </div>
     <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
       <div class="card-body">
-        No, you can have only one account linked to a single e-mail address.
+        No, we arrange for the shipment of returning products.
       </div>
     </div>
   </div>
@@ -88,14 +87,13 @@
     <div class="card-header bg-info" id="headingSix">
       <h5 class="mb-0">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        The product that I received was damaged and I want to return it. What do I do?
+       How do I return my product?
         </a>
       </h5>
     </div>
     <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
       <div class="card-body">
-In the unlikely event that the product delivered is in damaged condition, you can return the product unused and in the same condition as you received it, in its original packaging, along with the invoice for a refund. We will arrange for the order to be collected from the provided address through our logistic partner and returned to us. Please refer to  Return  policy section for details.
-Call us on 1800-266-0123 or write to customercare@titan.co.in within 7 days of receipt of the product to report the incident.
+You can return your order within 7 days of the receiving date. Call us or send an email.
       </div>
     </div>
   </div>
@@ -103,13 +101,13 @@ Call us on 1800-266-0123 or write to customercare@titan.co.in within 7 days of r
     <div class="card-header bg-info" id="headingSeven">
       <h5 class="mb-0">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-        What is the return policy?
+      How do I trust you with no spam?
         </a>
       </h5>
     </div>
     <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
       <div class="card-body">
-You can return the product unused and in the same condition as you received it, in its original packaging, along with the invoice for a refund. We will arrange for the order to be collected from the provided address through our logistic partner and returned to us. We shall process the refund only after the receipt of the product at our location in unused condition and in its original packaging along with its original tags and invoice, failing which refund may not be possible.
+Your information is safe with us. It stays private and our communication lines are always open so feel free to contact us anytime.
       </div>
     </div>
   </div>
@@ -117,13 +115,41 @@ You can return the product unused and in the same condition as you received it, 
     <div class="card-header bg-info" id="headingEight">
       <h5 class="mb-0">
         <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-        Do I need to pay for the return shipment if I return my order?
+      How do I trace the product that I ordered online?
         </a>
       </h5>
     </div>
     <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
       <div class="card-body">
-We at Jewellery Website will arrange for the return shipment to be collected and you do not need to make any payment for the courier.
+Our system updates you at each stage of the online order. We send you shipping confirmation details via email. Also, there is a tracking number on your product.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header bg-info" id="headingNine">
+      <h5 class="mb-0">
+        <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+      What if I put the wrong shipping details?
+        </a>
+      </h5>
+    </div>
+    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+      <div class="card-body">
+If you realize you have entered the wrong details or there is any other mistake after you have ordered, call us within business hours or email us.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header bg-info" id="headingTen">
+      <h5 class="mb-0">
+        <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+      How do I avail of a coupon?
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
+      <div class="card-body">
+To avail of a coupon, sign up as our subscribers and you will be updated about new offers/ sales/ coupons/ discounts.
       </div>
     </div>
   </div>

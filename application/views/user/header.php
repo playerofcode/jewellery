@@ -13,6 +13,7 @@
     <style>
     *{
       font-family: 'Nunito', sans-serif;
+      box-sizing:border-box;
     }
     a{text-decoration: none!important;padding: 10px;text-transform: uppercase;}
     .owl-dots span{
@@ -37,9 +38,10 @@
 background: #fff!important; 
   }
   .carousel-item img{
-    height: 400px!important;
+    min-height: 400px!important;
     width:100%;
   }
+ 
   .owl-carousel .item{
     min-height: 250px;
   }
@@ -129,6 +131,17 @@ position: relative;
     background: #f15060;
     color:#fff;
   }
+   @media only screen and (max-width: 768px)
+     {
+       .carousel-item img
+       {
+         min-height:300px!important;
+       }
+       .form-custom
+       {
+        width:150px;
+       }
+     }
   </style>
   </head>
   <body>
@@ -144,7 +157,7 @@ position: relative;
           <?php }else{?>
          <a class="text-white" href="javascript:void(0);" data-toggle="modal" data-target="#myModal">Login</a>
        <?php } ?>
-         <a class="text-white" href="<?php echo base_url('user/cart');?>"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i><sup><span class="badge badge-pill badge-info"><?php echo $this->cart->total_items();?></span></sup></a>
+         <a class="text-white" href="<?php echo base_url('user/cart');?>"><i class="fa fa-shopping-bag" aria-hidden="true"></i><sup><span class="badge badge-pill badge-info"><?php echo $this->cart->total_items();?></span></sup></a>
         </div>
       </div>
     </div>
@@ -152,7 +165,7 @@ position: relative;
             <nav class="navbar navbar-expand-lg bg-dark navbar-light shadow-sm sticky-top py-3 text-uppercase">
               <div class="container-fluid">
   <!-- Brand -->
-  <a class="navbar-brand mx-auto" href="<?php echo base_url('user/index');?>"><span class="text-danger">J</span>ewellery <span class="text-danger">S</span>tore</a>
+  <a class="navbar-brand mx-auto" href="<?php echo base_url('user/index');?>"><span class="text-danger">B</span>adri <span class="text-danger">P</span>rasad <span class="text-danger">O</span>nkar <span class="text-danger">N</span>ath <span class="text-danger">S</span>arraf <span class="text-danger">a</span>nd <span class="text-danger">S</span>ons</a>
 
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">

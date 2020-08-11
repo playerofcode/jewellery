@@ -34,8 +34,8 @@
           <div class="col-md-4 text-white">
             <p>Want Help? Click Here to chat with us on <i class="fa fa-whatsapp"></i></p>
             <p >Operating Hours: 10:00AM to 10:00PM Monday to Sunday</p>
-            <a href="<?php echo base_url('user/terms_and_condition'); ?>" class="nav-link nav-white">TERMS & CONDITIONS</a>
-            <a href="" class="nav-link nav-white">PRIVACY POLICY</a>
+            <a href="#" class="nav-link nav-white">TERMS & CONDITIONS</a>
+            <a href="<?php echo base_url('user/privacy_policy'); ?>" class="nav-link nav-white">PRIVACY POLICY</a>
             <a href="" class="nav-link nav-white">&copy; 2020 CONFOUNDING SOLUTIONS. All rights reserved.</a>
           </div>
         </div>

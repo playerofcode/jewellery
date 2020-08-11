@@ -1,4 +1,3 @@
-
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -134,22 +133,22 @@
     <h3 class="text-center text-uppercase">#MyMiaMoments</h3>
   </div>
   <div class="row no-gutters my_gallery py-5">
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-6 col-6">
       <a href="<?php echo base_url();?>/assets/img/img1.jpg" target="_blank"><img src="<?php echo base_url();?>/assets/img/img1.jpg" alt="" class="img-fluid"></a>
     </div>  
-     <div class="col-md-4">
+     <div class="col-md-4 col-sm-6 col-6">
       <a href="<?php echo base_url();?>/assets/img/img2.jpg" target="_blank"><img src="<?php echo base_url();?>/assets/img/img2.jpg" alt="" class="img-fluid"></a>
     </div> 
-     <div class="col-md-4">
+     <div class="col-md-4 col-sm-6 col-6">
       <a href="<?php echo base_url();?>/assets/img/img3.jpg" target="_blank"><img src="<?php echo base_url();?>/assets/img/img3.jpg" alt="" class="img-fluid"></a>
     </div> 
-     <div class="col-md-4">
+     <div class="col-md-4 col-sm-6 col-6">
       <a href="<?php echo base_url();?>/assets/img/img4.jpg" target="_blank"><img src="<?php echo base_url();?>/assets/img/img4.jpg" alt="" class="img-fluid"></a>
     </div> 
-     <div class="col-md-4">
+     <div class="col-md-4 col-sm-6 col-6">
       <a href="<?php echo base_url();?>/assets/img/img5.jpg" target="_blank"><img src="<?php echo base_url();?>/assets/img/img5.jpg" alt="" class="img-fluid"></a>
     </div> 
-     <div class="col-md-4">
+     <div class="col-md-4 col-sm-6 col-6">
       <a href="<?php echo base_url();?>/assets/img/img6.jpg" target="_blank"><img src="<?php echo base_url();?>/assets/img/img6.jpg" alt="" class="img-fluid"></a>
     </div> 
   </div>
@@ -161,12 +160,12 @@
       <h3 class="text-center text-uppercase">find a store near you</h3>
     </div>
     <div class="row text-center py3"> 
-      <div class="col-lg-6 col-md-6 p-2"> 
+      <div class="col-lg-6 col-md-6 p-2 col-12"> 
           <button id="getMyLocation" class="btn btn-custom"><i class="fa fa-map-marker"></i> use my current location</button>
           </div>
-      <div class="col-ld-6 col-md-6 p-2">
+      <div class="col-ld-6 col-md-6 p-2 col-12">
           <form method="post">
-          <div class="input-group mb-3">
+          <div class="input-group justify-content-center">
           <input type="text" id="pincode" class="form-custom" placeholder="Enter a pin code or city" style="outline: none;">
           <div class="input-group-append">
           <button class="locationFinder btn btn-custom-form" type="submit">CHECK</button>
@@ -186,12 +185,12 @@
       <p>ALL PRODUCTS ARE ORIGINAL AND GO THROUGH STRICT QUALITY CHECK.</p>
     </div>
     <div class="col-md-4 text-center">
-      <img src="assets/img/icon1.svg" alt="" class="img-fluid custom-icon">
+      <img src="assets/img/icon2.svg" alt="" class="img-fluid custom-icon">
       <h6>SHIPPING</h6>
       <p>SHIPPING IN INDIA IS FREE | SHIPPING CHARGES APPLICABLE FOR INTERNATIONAL LOCATIONS.</p>
     </div>
     <div class="col-md-4 text-center">
-      <img src="assets/img/icon1.svg" alt="" class="img-fluid custom-icon">
+      <img src="assets/img/icon3.svg" alt="" class="img-fluid custom-icon">
       <h6>7 DAY RETURN</h6>
       <p>USE OUR HASSLE FREE METHOD TO RETURN.</p>
     </div>

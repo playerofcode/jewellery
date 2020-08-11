@@ -161,6 +161,7 @@ class Payment {
         $this->addressString    = $addressString;
 
         $this->isPassedValidationForShipping = true;
+        return $this;
 
     }
 
@@ -181,6 +182,7 @@ class Payment {
         $this->billingPinCode   = $pinCode;
         $this->billingAddressString = $addressString;
         $this->isPassedValidationForBilling = true;
+        return $this;
 
     }
 

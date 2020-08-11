@@ -10,6 +10,7 @@
 	<div class="row py-5">
 		<div class="col-md-8">
 			<h4 class="text-center"> Cart Item(s)</h4>
+			<div class="table-responsive">
 			<table class="table">
 				<thead>
 					<tr>
@@ -36,7 +37,9 @@
                            <?php } ?>
 				</tbody>
 			</table>
+			</div>
 			<hr>
+			<div class="table-responsive">
 			<table class="table">
 				<thead>
 					<tr>
@@ -56,7 +59,7 @@
 						</td>
 						<td>   
 							<form action="<?php echo base_url('user/check_location');?>" method="POST">
-							<div class="input-group mb-3">
+							<div class="input-group mb-3 ">
   								<input type="text" name="pincode" id="pincode"  class="form-control"  placeholder="Pin Code" style="border-radius: 50px 0 0 50px;">
   							<div class="input-group-append">
     						<button class="btn btn-danger" type="submit" style="border-radius:0 50px 50px 0;">CHECK</button>
@@ -67,6 +70,7 @@
 					</tr>
 				</tbody>
 			</table>
+			</div>
 			<hr>
 		</div>
 		<div class="col-md-4">
@@ -120,7 +124,7 @@
  					<form action="<?php echo base_url('user/checkout');?>" method="post">
  					<button <?php if(empty($this->cart->total_items())){echo 'disabled';}?> type="submit" class="btn btn-danger form-control text-uppercase py-2" style="border-radius: 50px;">proceed to checkout</button>
  					</form>
- 					<div class="py-3 text-center"><a href="" class="custom-color text-uppercase">continue shopping</a></div>
+ 					<div class="py-3 text-center"><a href="<?php echo base_url('user/index');?>" class="custom-color text-uppercase">Continue Shopping</a></div>
  				</div>
  			</div>
 		</div>

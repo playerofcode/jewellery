@@ -754,7 +754,7 @@ echo $obj->submit();
 		$this->load->view('user/faq',);
 		$this->load->view('user/footer');
 	}
-	public function terms_and_condition()
+	public function privacy_policy()
 	{
 		$data['category']=$this->model->category();
 		$data['collection']=$this->model->collection();
@@ -762,7 +762,7 @@ echo $obj->submit();
 		$data['coins']=$this->model->getCoin();
 		$data['silver']=$this->model->silver();
 		$this->load->view('user/header',$data);
-		$this->load->view('user/terms_and_condition');
+		$this->load->view('user/privacy_policy');
 		$this->load->view('user/footer');	
 	}
 	public function coins($p_id)
