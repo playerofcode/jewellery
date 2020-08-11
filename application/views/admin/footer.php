@@ -1,5 +1,5 @@
             <footer class="footer text-center bg-warning text-white">
-                All Rights Reserved by Jewellery Website. Designed and Developed by <a href="http://confoundingsolutions.in/">Confounding Solutions</a>
+                All Rights Reserved by Badri Prasad Onkar Nath Sarraf and Sons. Designed and Developed by <a href="http://confoundingsolutions.in/">Confounding Solutions</a>
             </footer>
         </div>
         

@@ -180,17 +180,17 @@
 <div class="container-fluid">
     <div class="row py-5" style="background: #f6f6f6;">
     <div class="col-md-4 text-center">
-      <img src="assets/img/icon1.svg" alt="" class="img-fluid custom-icon">
+      <img src="<?php echo base_url();?>assets/img/icon1.svg" alt="" class="img-fluid custom-icon">
       <h6>100% ORIGINAL</h6>
       <p>ALL PRODUCTS ARE ORIGINAL AND GO THROUGH STRICT QUALITY CHECK.</p>
     </div>
     <div class="col-md-4 text-center">
-      <img src="assets/img/icon2.svg" alt="" class="img-fluid custom-icon">
+      <img src="<?php echo base_url();?>assets/img/icon2.svg" alt="" class="img-fluid custom-icon">
       <h6>SHIPPING</h6>
       <p>SHIPPING IN INDIA IS FREE | SHIPPING CHARGES APPLICABLE FOR INTERNATIONAL LOCATIONS.</p>
     </div>
     <div class="col-md-4 text-center">
-      <img src="assets/img/icon3.svg" alt="" class="img-fluid custom-icon">
+      <img src="<?php echo base_url();?>assets/img/icon3.svg" alt="" class="img-fluid custom-icon">
       <h6>7 DAY RETURN</h6>
       <p>USE OUR HASSLE FREE METHOD TO RETURN.</p>
     </div>

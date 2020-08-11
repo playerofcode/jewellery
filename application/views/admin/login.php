@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url('assets/admin/'); ?>assets/images/favicon.png">
-    <title>Jewellery Website</title>
+    <title>Badri Prasad Onkar Nath Sarraf and Sons</title>
     <!-- Custom CSS -->
     <link href="<?php echo base_url('assets/admin/'); ?>dist/css/style.min.css" rel="stylesheet">
 </head>

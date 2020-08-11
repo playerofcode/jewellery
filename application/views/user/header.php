@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
-    <title>Jewellery Store</title>
+    <title>Badri Prasad Onkar Nath Sarraf and Sons</title>
     <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>/assets/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >

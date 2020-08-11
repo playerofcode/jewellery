@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url('assets/admin/'); ?>assets/images/favicon.png">
-    <title>Jewellery Website</title>
+    <title>Badri Prasad Onkar Nath Sarraf and Sons</title>
     <link href="<?php echo base_url('assets/admin/'); ?>assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <link href="<?php echo base_url('assets/admin/'); ?>dist/css/style.min.css" rel="stylesheet">
 </head>
